@@ -88,7 +88,6 @@
     isNormalUser = true;
     description = "Prince Nna";
     extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.fish;
   };
 
   # Allow unfree packages
@@ -111,11 +110,16 @@
     curl
     kate
     pkgs.gnome.adwaita-icon-theme
+    pkgs.gnome.gnome-themes-extra
     pkgs.pop-gtk-theme
   ];
 
   # Enable dconf
   programs.dconf.enable = true;
+
+  # Set default shell
+  programs.fish.enable = true;
+  users.defaultUserShell = pkgs.fish;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
