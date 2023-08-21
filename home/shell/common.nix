@@ -8,6 +8,7 @@
     deadnix
     statix
     rnix-lsp
+    grc
   ];
 
   programs.direnv = {
