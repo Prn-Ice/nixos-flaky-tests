@@ -16,4 +16,10 @@
     nix-direnv.enable = true;
     enableZshIntegration = true;
   };
+
+  # Enable nix index for fish
+  programs.nix-index = {
+    enable = true;
+    enableFishIntegration = true;
+  };
 }
