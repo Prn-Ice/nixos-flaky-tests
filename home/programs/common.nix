@@ -54,6 +54,7 @@
     ethtool
     pciutils # lspci
     usbutils # lsusb
+    filelight
   ];
 
   programs = {
