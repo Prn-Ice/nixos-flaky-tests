@@ -44,7 +44,7 @@
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     # set hardware config url
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
 
   # `outputs` are all the build result of the flake.
@@ -138,7 +138,7 @@
             }
 
             # Import hardwre configs
-            nixos-hardware.nixosModules.asus-zephyrus-ga503
+            # nixos-hardware.nixosModules.asus-zephyrus-ga503
           ];
         };
       };
