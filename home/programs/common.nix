@@ -2,6 +2,7 @@
   home.packages = with pkgs; [
     # command line tools
     neofetch
+    grc
 
     # archives
     zip
@@ -55,6 +56,14 @@
     pciutils # lspci
     usbutils # lsusb
     filelight
+
+    # communication
+    slack
+    discord
+    zoom-us
+
+    # vpn
+    protonvpn-gui
   ];
 
   programs = {
