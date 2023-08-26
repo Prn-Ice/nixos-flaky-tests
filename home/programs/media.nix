@@ -11,6 +11,13 @@
     pulsemixer
     # images
     imv
+    ffmpeg
+    spectacle
+    upscayl
+
+    # music
+    spotify
+    spotdl
   ];
 
   programs = {

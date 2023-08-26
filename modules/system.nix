@@ -38,6 +38,7 @@
 
   # Enable bluetooth
   hardware.bluetooth.enable = true;
+  # hardware.bluetooth.powerOnBoot = true;
 
   # Asus linux stuff
   services.supergfxd.enable = true;
@@ -71,6 +72,10 @@
 
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
+
+  # Enable fingerprint support
+  # see https://wiki.archlinux.org/title/fprint for usage
+  # services.fprintd.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
