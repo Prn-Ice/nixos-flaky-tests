@@ -13,15 +13,15 @@
         src = pkgs.fishPlugins.z.src;
       }
       # Manually packaging and enable a plugin
-      {
-        name = "nvm";
-        src = pkgs.fetchFromGitHub {
-          owner = "jorgebucaran";
-          repo = "nvm.fish";
-          rev = "2.2.13";
-          sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
-        };
-      }
+      # {
+      #   name = "nvm";
+      #   src = pkgs.fetchFromGitHub {
+      #     owner = "jorgebucaran";
+      #     repo = "nvm.fish";
+      #     rev = "2.2.13";
+      #     sha256 = "sha256-LV5NiHfg4JOrcjW7hAasUSukT43UBNXGPi1oZWPbnCA=";
+      #   };
+      # }
     ];
   };
 
