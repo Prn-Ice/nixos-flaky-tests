@@ -9,6 +9,7 @@
     statix
     rnix-lsp
     grc
+    devbox
   ];
 
   programs.direnv = {
