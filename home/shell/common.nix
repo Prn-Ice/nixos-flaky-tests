@@ -8,7 +8,6 @@
     deadnix
     statix
     rnix-lsp
-    grc
     devbox
   ];
 

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Set your time zone.
@@ -66,6 +66,12 @@
     #media-session.enable = true;
   };
 
+  # Enable the cpu management tool 
+  services.cpupower-gui.enable = true;
+
+  # Enable fstrim for extending ssd life
+  services.fstrim.enable = lib.mkDefault true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -115,7 +121,7 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 1w";
- };
+  };
 
   # Optimize storage
   # You can also manually optimize the store via:
