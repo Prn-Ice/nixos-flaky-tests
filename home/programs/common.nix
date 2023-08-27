@@ -61,6 +61,10 @@
     usbutils # lsusb
     filelight
     lshw
+    clinfo
+    glxinfo
+    vulkan-tools
+    wayland-utils
 
     # communication
     slack
