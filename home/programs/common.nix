@@ -18,7 +18,6 @@
     aria2 # A lightweight multi-protocol & multi-source command-line download utility
     nmap # A utility for network discovery and security auditing
     ipcalc # it is a calculator for the IPv4/v6 addresses
-    
 
     # misc
     cowsay
@@ -63,6 +62,7 @@
     glxinfo
     vulkan-tools
     wayland-utils
+    nvidia-system-monitor-qt
 
     # communication
     slack
@@ -71,6 +71,14 @@
 
     # vpn
     protonvpn-gui
+
+    # benchmark
+    glmark2
+    unigine-heaven
+    phoronix-test-suite
+
+    # gaming
+    steam
   ];
 
   programs = {
