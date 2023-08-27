@@ -14,6 +14,10 @@
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 
+  hardware.opengl.extraPackages = with pkgs; [
+    vaapiVdpau
+  ];
+
   hardware.nvidia = {
 
     # Modesetting is needed most of the time
