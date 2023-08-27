@@ -8,8 +8,11 @@
     driSupport32Bit = true;
   };
 
+  # Don't load default graphics
+  boot.blacklistedKernelModules = [ "nouveau" ];
+
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
 
   hardware.nvidia = {
 
