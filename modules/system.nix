@@ -73,6 +73,11 @@
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
+  # For adb permissions
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
+
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
 
