@@ -13,14 +13,12 @@
     # utils
     exa # A modern replacement for ‘ls’
     fzf # A command-line fuzzy finder
-    android-tools # Android Debug Bridge
 
     # networking tools
     aria2 # A lightweight multi-protocol & multi-source command-line download utility
     nmap # A utility for network discovery and security auditing
     ipcalc # it is a calculator for the IPv4/v6 addresses
-    ngrok # a tunneling HTTP proxy
-    httpie # a command-line HTTP client
+    
 
     # misc
     cowsay
@@ -73,10 +71,6 @@
 
     # vpn
     protonvpn-gui
-
-    # containers
-    docker
-    docker-compose
   ];
 
   programs = {
