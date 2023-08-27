@@ -8,6 +8,7 @@
     ./development.nix
     ./git.nix
     ./media.nix
+    ./virtualisation.nix
     ./vscode.nix
     ./xdg.nix
   ];

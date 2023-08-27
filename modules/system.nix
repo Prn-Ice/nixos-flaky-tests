@@ -73,6 +73,9 @@
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
+  # Enable virtualisation
+  virtualisation.libvirtd.enable = true;
+
   # Enable fingerprint support
   # see https://wiki.archlinux.org/title/fprint for usage
   # services.fprintd.enable = true;
@@ -112,7 +115,7 @@
   users.users.prnice = {
     isNormalUser = true;
     description = "Prince Nna";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
   };
 
   # Allow unfree packages
