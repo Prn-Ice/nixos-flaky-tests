@@ -152,6 +152,9 @@
     wget
     curl
     kate
+    yakuake
+    linuxKernel.packages.linux_latest_libre.cpupower
+    egl-wayland
     pkgs.gnome.adwaita-icon-theme
     pkgs.gnome.gnome-themes-extra
     pkgs.pop-gtk-theme

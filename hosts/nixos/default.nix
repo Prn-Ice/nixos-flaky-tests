@@ -8,8 +8,8 @@
   imports =
     [
       ../../modules/system.nix
-      ../../modules/nvidia.nix
-      ../../modules/pstate.nix
+      ../../modules/cpu.nix
+      ../../modules/gpu.nix
 
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
