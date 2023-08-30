@@ -7,7 +7,7 @@
 {
   imports =
     [
-      ../../modules/system
+      ./system
       ./hardware
 
       # Include the results of the hardware scan.
