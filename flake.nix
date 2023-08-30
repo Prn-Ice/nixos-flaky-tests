@@ -45,7 +45,6 @@
     , nixpkgs
     , home-manager
     , nix-vscode-extensions
-    , nixos-hardware
     , ...
     }@inputs: {
       nixosConfigurations = {
@@ -114,14 +113,11 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.extraSpecialArgs = inputs;
-              home-manager.users.prnice = import ./home;
+              home-manager.users.prnice = import ./modules/home-manager;
 
               # Optionally, use home-manager.extraSpecialArgs to pass
               # arguments to home.nix
             }
-
-            # Import hardwre configs
-            # nixos-hardware.nixosModules.asus-zephyrus-ga503
           ];
         };
       };
