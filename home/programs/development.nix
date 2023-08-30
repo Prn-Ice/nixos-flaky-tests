@@ -11,7 +11,7 @@
     httpie # a command-line HTTP client
 
     # containers
-    docker
-    docker-compose
+    # docker
+    # docker-compose
   ];
 }

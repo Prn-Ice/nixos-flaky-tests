@@ -80,6 +80,7 @@
 
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
+  virtualisation.docker.enable = true;
 
   # Enable fingerprint support
   # see https://wiki.archlinux.org/title/fprint for usage
