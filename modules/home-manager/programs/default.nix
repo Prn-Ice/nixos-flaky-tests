@@ -10,6 +10,5 @@
     ./media.nix
     ./virtualisation.nix
     ./vscode.nix
-    ./xdg.nix
   ];
 }

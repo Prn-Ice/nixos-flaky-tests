@@ -4,7 +4,7 @@
   imports = [
     ./core.nix
     ./boot/efi.nix
-    ./desktop/wayland.nix
+    ./desktop/kde.nix
     ./services/ssh.nix
 
     ./custom_defaults.nix
@@ -34,6 +34,8 @@
     pkgs.gnome.adwaita-icon-theme
     pkgs.gnome.gnome-themes-extra
     pkgs.pop-gtk-theme
+    xorg.libxcb
+    xorg.libxcb.dev
   ];
 
   # This value determines the NixOS release from which the default
