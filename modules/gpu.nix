@@ -8,15 +8,8 @@
     driSupport32Bit = true;
   };
 
-  # Don't load default graphics
-  boot.blacklistedKernelModules = [ "nouveau" ];
-
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
-
-  hardware.opengl.extraPackages = with pkgs; [
-    vaapiVdpau
-  ];
 
   hardware.nvidia = {
 
@@ -25,7 +18,11 @@
 
     # Enable power management (do not disable this unless you have a reason to).
     # Likely to cause problems on laptops and with screen tearing if disabled.
-    powerManagement.enable = true;
+    # Note: commented out cause of issues with sleep
+    # powerManagement.enable = true;
+
+    # Fix wake from sleep issues
+    nvidiaPersistenced = true;
 
     # Use the open source version of the kernel module ("nouveau")
     # Note that this offers much lower performance and does not
