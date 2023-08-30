@@ -73,11 +73,6 @@
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
-  # For adb permissions
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
-
   # Enable virtualisation
   virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
@@ -121,7 +116,7 @@
   users.users.prnice = {
     isNormalUser = true;
     description = "Prince Nna";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "adbusers" ];
   };
 
   # Allow unfree packages
@@ -164,6 +159,9 @@
 
   # Enable dconf
   programs.dconf.enable = true;
+
+  # Enable adb
+  programs.adb.enable = true;
 
   # Set default shell
   programs.fish.enable = true;

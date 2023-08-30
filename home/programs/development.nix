@@ -4,7 +4,6 @@
   home.packages = with pkgs; [
     # android
     android-studio
-    android-tools # Android Debug Bridge
 
     # networking tools
     ngrok # a tunneling HTTP proxy
