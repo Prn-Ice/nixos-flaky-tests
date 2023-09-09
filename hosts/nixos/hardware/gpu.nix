@@ -1,6 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
+  boot.initrd.kernelModules = [ "nvidia" ];
+  boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+
   # Enable OpenGL
   hardware.opengl = {
     enable = true;
@@ -9,7 +12,7 @@
   };
 
   # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = [ "amdgpu" "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
 
@@ -19,10 +22,13 @@
     # Enable power management (do not disable this unless you have a reason to).
     # Likely to cause problems on laptops and with screen tearing if disabled.
     # Note: commented out cause of issues with sleep
-    # powerManagement.enable = true;
+    powerManagement = {
+      enable = true;
+      finegrained = true;
+    };
 
     # Fix wake from sleep issues
-    nvidiaPersistenced = true;
+    # nvidiaPersistenced = true;
 
     # Use the open source version of the kernel module ("nouveau")
     # Note that this offers much lower performance and does not
@@ -37,5 +43,12 @@
 
     # Optionally, you may need to select the appropriate driver version for your specific GPU.
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+
+    prime = {
+      reverseSync.enable = true;
+
+      amdgpuBusId = "PCI:6:0:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 }

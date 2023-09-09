@@ -23,9 +23,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # vscode plugin library
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-
     # set hardware config url
     # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
@@ -44,7 +41,6 @@
     { self
     , nixpkgs
     , home-manager
-    , nix-vscode-extensions
     , ...
     }@inputs: {
       nixosConfigurations = {

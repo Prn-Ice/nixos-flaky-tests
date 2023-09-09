@@ -18,6 +18,9 @@
     # music
     spotify
     spotdl
+
+    # video
+    stremio
   ];
 
   programs = {
