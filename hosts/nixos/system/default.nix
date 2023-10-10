@@ -36,6 +36,7 @@
     pkgs.pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev
+    kdeconnect
   ];
 
   # This value determines the NixOS release from which the default
