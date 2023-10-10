@@ -9,6 +9,7 @@
     statix
     rnix-lsp
     devbox
+    shfmt
   ];
 
   programs.direnv = {

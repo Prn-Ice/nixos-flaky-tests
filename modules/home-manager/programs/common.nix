@@ -11,7 +11,7 @@
     p7zip
 
     # utils
-    exa # A modern replacement for ‘ls’
+    eza # A modern replacement for ‘ls’
     fzf # A command-line fuzzy finder
 
     # networking tools
@@ -61,7 +61,6 @@
     clinfo
     glxinfo
     vulkan-tools
-    wayland-utils
     nvidia-system-monitor-qt
 
     # communication
