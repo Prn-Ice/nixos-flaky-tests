@@ -17,7 +17,6 @@
 
     # music
     spotify
-    spotdl
 
     # video
     stremio
