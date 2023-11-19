@@ -25,6 +25,9 @@ in
     DELTA_PAGER = "less -R";
 
     MANPAGER = "sh -c 'col -bx | bat -l man -p'";
+
+    # Electron apps wayland fix
+    NIXOS_OZONE_WL = "1";
   };
 
   home.shellAliases = {
