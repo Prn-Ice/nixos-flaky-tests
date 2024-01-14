@@ -9,6 +9,9 @@
     pavucontrol
     playerctl
     pulsemixer
+    easyeffects
+    jamesdsp
+
     # images
     imv
     ffmpeg
@@ -17,6 +20,8 @@
 
     # music
     spotify
+    tidal-hifi
+    tidal-dl
 
     # video
     stremio
