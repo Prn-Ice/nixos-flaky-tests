@@ -10,6 +10,7 @@
 
     displayManager = {
       sddm.enable = true;
+      sddm.enableHidpi = true;
       defaultSession = "plasmawayland";
     };
   };
