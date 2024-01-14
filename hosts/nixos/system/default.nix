@@ -30,12 +30,16 @@
     kate
     yakuake
     linuxKernel.packages.linux_latest_libre.cpupower
-    pkgs.gnome.adwaita-icon-theme
-    pkgs.gnome.gnome-themes-extra
-    pkgs.pop-gtk-theme
+    egl-wayland
+    gnome.adwaita-icon-theme
+    gnome.gnome-themes-extra
+    pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev
     kdeconnect
+    sddm-kcm
+    partition-manager
+    gparted
   ];
 
   # This value determines the NixOS release from which the default

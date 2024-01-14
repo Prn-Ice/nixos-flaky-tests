@@ -62,9 +62,7 @@
     glxinfo
     vulkan-tools
     nvidia-system-monitor-qt
-    partition-manager
-    gparted
-
+    
     # communication
     slack
     discord
