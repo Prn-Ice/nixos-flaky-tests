@@ -4,12 +4,11 @@
 }:
 
 {
+
   programs.vscode = {
     enable = true;
     package = pkgs.vscode-fhsWithPackages (
-      additionalPkgs: with additionalPkgs; [
-
-      ]
+      additionalPkgs: with additionalPkgs; [ ]
     );
     extensions = [ ];
   };
