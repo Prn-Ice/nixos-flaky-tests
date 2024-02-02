@@ -6,6 +6,7 @@
     ./boot/efi.nix
     ./desktop/kde.nix
     ./services/ssh.nix
+    ./theme/sddm.nix
 
     ./custom_defaults.nix
     ./i18n.nix
