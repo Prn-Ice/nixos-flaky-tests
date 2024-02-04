@@ -7,9 +7,7 @@
 
   programs.vscode = {
     enable = true;
-    package = pkgs.vscode-fhsWithPackages (
-      additionalPkgs: with additionalPkgs; [ ]
-    );
+    package = pkgs.vscode-fhs;
     extensions = [ ];
   };
 }
