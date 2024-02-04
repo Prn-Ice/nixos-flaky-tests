@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
 {
+  xdg.portal = {
+    enable = true;
+    # there is some weirdness happening here
+    # https://github.com/NixOS/nixpkgs/issues/160923
+    xdgOpenUsePortal = true;
+  };
+
   services.xserver = {
     # Enable the X11 windowing system.
     enable = true;

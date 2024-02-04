@@ -62,6 +62,7 @@
     glxinfo
     vulkan-tools
     nvidia-system-monitor-qt
+    xdg-utils  # for xdg-open etc.
     
     # communication
     slack
