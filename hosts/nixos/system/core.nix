@@ -49,4 +49,5 @@
       autoPrune.enable = true;
     };
   };
+  programs.virt-manager.enable = true;
 }

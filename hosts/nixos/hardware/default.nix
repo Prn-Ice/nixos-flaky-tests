@@ -3,6 +3,7 @@
 {
   imports = [
     ./cpu.nix
+    ./gpu_passthrough.nix
     ./gpu.nix
   ];
 
