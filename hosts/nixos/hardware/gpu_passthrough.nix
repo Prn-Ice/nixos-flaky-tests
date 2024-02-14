@@ -27,12 +27,13 @@ in
           kernelParams = [
             # enable IOMMU
             "amd_iommu=on"
-          ] ++ lib.optional cfg.enable
             # isolate the GPU
-            ("vfio-pci.ids=" + lib.concatStringsSep "," gpuIDs);
+            "vfio-pci.ids=${lib.concatStringsSep "," gpuIDs}"
+          ];
+
+          extraModprobeConfig = "options vfio-pci ids=${lib.concatStringsSep "," gpuIDs}";
         };
 
-        virtualisation.spiceUSBRedirection.enable = true;
         hardware.opengl.enable = true;
       };
 }

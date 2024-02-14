@@ -4,7 +4,7 @@
   users.users.prnice = {
     isNormalUser = true;
     description = "Prince Nna";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "adbusers" ];
+    extraGroups = [ "qemu-libvirtd" "libvirtd" "networkmanager" "wheel" "adbusers" "disk" ];
   };
 
   # Set default shell

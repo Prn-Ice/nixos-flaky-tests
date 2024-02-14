@@ -16,6 +16,7 @@
     ./security.nix
     ./audio.nix
     ./fonts.nix
+    ./virtualisation.nix
   ];
 
   # if use vscode in wayland, uncomment this line
@@ -34,9 +35,6 @@
     egl-wayland
     gnome.adwaita-icon-theme
     gnome.gnome-themes-extra
-    gnome.gnome-boxes
-    spice
-    spice-gtk
     pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev

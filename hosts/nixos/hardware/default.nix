@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./cpu.nix
     ./gpu_passthrough.nix
+    ./cpu.nix
     ./gpu.nix
   ];
 

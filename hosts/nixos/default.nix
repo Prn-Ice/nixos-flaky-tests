@@ -7,11 +7,11 @@
 {
   imports =
     [
-      ./system
-      ./hardware
-
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      
+      ./system
+      ./hardware
     ];
 
   networking.hostName = "nixos"; # Define your hostname.

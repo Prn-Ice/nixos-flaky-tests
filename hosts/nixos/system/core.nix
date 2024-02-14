@@ -39,15 +39,4 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-
-  # Enable virtualisation
-  virtualisation = {
-    libvirtd.enable = true;
-    docker = {
-      enable = true;
-      autoPrune.enable = true;
-    };
-  };
-  programs.virt-manager.enable = true;
 }
