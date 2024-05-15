@@ -5,9 +5,7 @@ let
     "10de:228b" # Audio
   ];
 in
-{ pkgs, lib, config, ... }: {
-  # options.vfio.enable = with lib;
-  #   mkEnableOption "Configure the machine for VFIO";
+{ lib, config, ... }: {
   options.vfio = with lib; {
     enable = mkEnableOption "Configure the machine for Nvidia VFIO passthrough";
   };

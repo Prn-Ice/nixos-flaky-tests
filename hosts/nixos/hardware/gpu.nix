@@ -60,12 +60,13 @@ let
 
     # Packages related to NVIDIA graphics
     environment.systemPackages = with pkgs; [
-      clinfo
-      gwe
-      nvtop-nvidia
-      virtualglLib
-      vulkan-loader
-      vulkan-tools
+      # libva-utils
+      # clinfo
+      # gwe
+      # nvtop-nvidia
+      # virtualglLib
+      # vulkan-loader
+      # vulkan-tools
     ];
   };
 in

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Bootloader.
@@ -16,8 +16,8 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Add VFIO boot option
-  specialisation."VFIO".configuration = {
-    system.nixos.tags = [ "with-vfio" ];
-    vfio.enable = true;
-  };
+  # specialisation."VFIO".configuration = {
+  #   system.nixos.tags = [ "with-vfio" ];
+  #   vfio.enable = true;
+  # };
 }
