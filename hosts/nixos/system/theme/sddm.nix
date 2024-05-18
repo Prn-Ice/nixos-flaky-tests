@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let
 
@@ -94,5 +94,5 @@ in
 {
   environment.systemPackages = packages;
 
-  services.xserver.displayManager.sddm.theme = themeName;
+  services.displayManager.sddm.theme = themeName;
 }

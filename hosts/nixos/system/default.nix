@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -8,7 +8,6 @@
     ./services/ssh.nix
     ./theme/sddm.nix
 
-    ./custom_defaults.nix
     ./i18n.nix
     ./networking.nix
     ./nix.nix
@@ -29,18 +28,12 @@
     git
     wget
     curl
-    kate
-    yakuake
     linuxKernel.packages.linux_latest_libre.cpupower
-    egl-wayland
     gnome.adwaita-icon-theme
     gnome.gnome-themes-extra
     pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev
-    kdeconnect
-    sddm-kcm
-    partition-manager
     gparted
   ];
 

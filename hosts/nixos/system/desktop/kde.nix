@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   xdg.portal = {
@@ -8,17 +8,23 @@
     xdgOpenUsePortal = true;
   };
 
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
+  # Enable the X11 windowing system.
+  services.xserver.enable = true;
 
-    # Enable the KDE Plasma Desktop Environment.
-    desktopManager.plasma5.enable = true;
-
-    displayManager = {
-      sddm.enable = true;
-      sddm.enableHidpi = true;
-      defaultSession = "plasmawayland";
-    };
+  services.displayManager = {
+    sddm.wayland.enable = true;
+    sddm.enable = true;
+    sddm.enableHidpi = true;
+    defaultSession = "plasma";
   };
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.desktopManager = {
+    plasma6.enable = true;
+  };
+
+  environment.systemPackages = with pkgs; [
+    kdePackages.yakuake
+    kdePackages.sddm-kcm
+  ];
 }

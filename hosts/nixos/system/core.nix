@@ -1,27 +1,20 @@
-{ config, pkgs, lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   # List services that you want to enable:
 
-  # Asus linux stuff
-  services.supergfxd.enable = true;
-  # systemd.services.supergfxd.path = [ pkgs.pciutils ];
-  services = {
-    asusd = {
-      enable = true;
-      enableUserService = true;
-    };
-  };
-
-  # Enable the cpu management tool 
-  services.cpupower-gui.enable = true;
-
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
-  # Enable fingerprint support
-  # see https://wiki.archlinux.org/title/fprint for usage
-  # services.fprintd.enable = true;
+  # Enable fingerprint reader
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-elan;
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -31,6 +24,9 @@
 
   # Enable adb
   programs.adb.enable = true;
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
