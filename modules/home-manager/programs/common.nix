@@ -61,7 +61,6 @@
     clinfo
     glxinfo
     vulkan-tools
-    nvidia-system-monitor-qt
     xdg-utils  # for xdg-open etc.
     
     # communication
@@ -71,11 +70,6 @@
 
     # vpn
     protonvpn-gui
-
-    # benchmark
-    glmark2
-    unigine-heaven
-    phoronix-test-suite
 
     # gaming
     steam
