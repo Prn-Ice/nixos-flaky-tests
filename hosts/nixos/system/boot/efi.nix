@@ -1,15 +1,15 @@
 { pkgs, ... }:
 
 {
-  # Bootloader.
+  # Bootloader
   boot.loader = {
-    systemd-boot = {
-      enable = true;
-
-      # Limit the number of generations to keep
-      configurationLimit = 10;
+    efi = {
+      canTouchEfiVariables = true;
     };
-    efi.canTouchEfiVariables = true;
+    grub = {
+      efiSupport = true;
+      device = "nodev";
+    };
   };
 
   # Use latest kernel
