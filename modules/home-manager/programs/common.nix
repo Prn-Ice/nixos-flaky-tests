@@ -73,6 +73,9 @@
 
     # gaming
     steam
+
+    # editor
+    typora
   ];
 
   programs = {
