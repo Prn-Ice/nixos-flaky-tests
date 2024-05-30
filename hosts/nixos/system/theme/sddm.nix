@@ -21,13 +21,13 @@ let
         for f in $dir/{AUTHORS,COPYING,LICENSE,README,*.md,*.txt}; do
           test -f $f && mv $f $doc/
         done
-        # chmod 777 $dir/theme.conf
-
+        chmod 777 $dir/theme.conf
 
         ${lib.concatMapStringsSep "\n" (e: ''
-          ${pkgs.crudini}/bin/crudini --set --inplace $dir/theme.conf \
-            "${e.section}" "${e.key}" "${e.value}"
-        '') themeIni}
+            ${pkgs.crudini}/bin/crudini --set --inplace $dir/theme.conf \
+              "${e.section}" "${e.key}" "${e.value}"
+          '')
+          themeIni}
       '';
     };
 
@@ -37,9 +37,9 @@ let
   # SDDM theme selector
   # ------------------------------------------
 
-  theme = "breeze"; # <==== Default ssdm them for kde
-  # theme = themes.solarized;
-  # theme = themes.nordic;
+  # theme = "breeze"; # <==== Default ssdm them for kde
+  theme = themes.sddm-sugar-dark;
+
 
   themeName =
     if customTheme
@@ -52,15 +52,16 @@ let
     else [ ];
 
   themes = {
-    solarized = {
+
+    sddm-sugar-dark = {
       pkg = rec {
-        name = "solarized";
-        version = "20190103";
+        name = "sugar-dark";
+        version = "1.2";
         src = pkgs.fetchFromGitHub {
-          owner = "MalditoBarbudo";
-          repo = "${name}_sddm_theme";
-          rev = "2b5bdf1045f2a5c8b880b482840be8983ca06191";
-          sha256 = "1n36i4mr5vqfsv7n3jrvsxcxxxbx73yq0dbhmd2qznncjfd5hlxr";
+          owner = "MarianArlt";
+          repo = "sddm-sugar-dark";
+          rev = "v${version}";
+          sha256 = "0gx0am7vq1ywaw2rm1p015x90b75ccqxnb1sz3wy8yjl27v82yhb";
         };
         themeIni = [
           {
@@ -70,23 +71,7 @@ let
           }
         ];
       };
-      deps = with pkgs; [ font-awesome ];
-    };
-
-    nordic = {
-      pkg = rec {
-        name = "nordic";
-        src = pkgs.nordic;
-        version = "2.2.0-unstable-2024-01-20";
-        themeIni = [
-          {
-            section = "General";
-            key = "background";
-            value = ./assets/Harmony.jpg;
-          }
-        ];
-      };
-      deps = with pkgs; [ ];
+      deps = [ pkgs.libsForQt5.qt5.qtgraphicaleffects ];
     };
   };
 
