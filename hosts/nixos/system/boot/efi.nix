@@ -3,7 +3,7 @@
 let
   grub-theme = pkgs.sleek-grub-theme.override {
     withStyle = "dark";
-    withBanner = "Choose Your Destiny"; 
+    withBanner = "Choose Your Destiny";
   };
 in
 {
