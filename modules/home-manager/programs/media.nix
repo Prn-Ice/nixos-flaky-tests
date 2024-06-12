@@ -1,7 +1,4 @@
-{ pkgs
-, config
-, ...
-}:
+{ pkgs, ... }:
 # media - control and enjoy audio/video
 {
   home.packages = with pkgs; [
@@ -30,8 +27,6 @@
   programs = {
     mpv = {
       enable = true;
-      defaultProfiles = [ "gpu-hq" ];
-      scripts = [ pkgs.mpvScripts.mpris ];
     };
 
     obs-studio.enable = true;
