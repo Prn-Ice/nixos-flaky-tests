@@ -6,15 +6,19 @@
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
+  # Disble fingerprint temporarily
+  # When bios gets updated, grub breaks
+  # Its difficult to fix grub when auth is controlled by fprint
+  
   # Enable fingerprint reader
-  services.fprintd = {
-    enable = true;
-    package = pkgs.fprintd-tod;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-elan;
-    };
-  };
+  # services.fprintd = {
+  #   enable = true;
+  #   package = pkgs.fprintd-tod;
+  #   tod = {
+  #     enable = true;
+  #     driver = pkgs.libfprint-2-tod1-elan;
+  #   };
+  # };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
