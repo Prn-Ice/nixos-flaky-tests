@@ -67,6 +67,7 @@
     slack
     discord
     zoom-us
+    megasync
 
     # vpn
     protonvpn-gui

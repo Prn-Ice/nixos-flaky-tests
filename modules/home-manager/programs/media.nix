@@ -6,7 +6,7 @@
     pavucontrol
     playerctl
     pulsemixer
-    easyeffects
+    # easyeffects
     jamesdsp
 
     # images

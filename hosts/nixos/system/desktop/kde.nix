@@ -27,6 +27,9 @@
 
   environment.systemPackages = with pkgs; [
     kdePackages.yakuake
+    kdePackages.sddm-kcm
+    
+    # Theme packages
     (pkgs.where-is-my-sddm-theme.override {
       # themeConfig.General = {
       #   background = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
