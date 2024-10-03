@@ -2,7 +2,7 @@
 
 {
   environment.systemPackages = with pkgs; [
-    gnome.gnome-boxes
+    gnome-boxes
     virt-manager
     spice
     spice-gtk

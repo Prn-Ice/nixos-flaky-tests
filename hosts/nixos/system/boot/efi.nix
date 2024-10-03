@@ -19,6 +19,14 @@ in
       memtest86.enable = true;
       theme = grub-theme;
     };
+
+    # Keep systemd-boot option, when grub crashes its a good backup
+    systemd-boot = {
+      enable = true;
+
+      # Limit the number of generations to keep
+      configurationLimit = 10;
+    };
   };
 
   # Make sure our package is installed

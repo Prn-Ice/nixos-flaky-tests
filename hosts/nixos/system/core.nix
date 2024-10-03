@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ lib, ... }:
 
 {
   # List services that you want to enable:
@@ -9,7 +9,7 @@
   # Disble fingerprint temporarily
   # When bios gets updated, grub breaks
   # Its difficult to fix grub when auth is controlled by fprint
-  
+
   # Enable fingerprint reader
   # services.fprintd = {
   #   enable = true;

@@ -28,8 +28,8 @@
     wget
     curl
     linuxKernel.packages.linux_latest_libre.cpupower
-    gnome.adwaita-icon-theme
-    gnome.gnome-themes-extra
+    adwaita-icon-theme
+    gnome-themes-extra
     pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev
