@@ -5,6 +5,7 @@
     ./core.nix
     ./boot/efi.nix
     ./desktop/kde.nix
+    # ./desktop/gnome.nix
     ./services/ssh.nix
 
     ./i18n.nix
