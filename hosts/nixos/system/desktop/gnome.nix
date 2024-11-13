@@ -3,6 +3,13 @@
 { pkgs, ... }:
 
 {
+  xdg.portal = {
+    enable = true;
+    # there is some weirdness happening here
+    # https://github.com/NixOS/nixpkgs/issues/160923
+    xdgOpenUsePortal = true;
+  };
+
   services.xserver = {
     enable = true;
 
@@ -10,23 +17,23 @@
     desktopManager.gnome.enable = true;
   };
 
-  environment.gnome.excludePackages = [
-    pkgs.gnome.cheese
-    pkgs.gnome-photos
-    pkgs.gnome.gnome-music
-    pkgs.gnome.gnome-terminal
-    pkgs.gnome.gedit
-    pkgs.epiphany
-    pkgs.evince
-    pkgs.gnome.gnome-characters
-    pkgs.gnome.totem
-    pkgs.gnome.tali
-    pkgs.gnome.iagno
-    pkgs.gnome.hitori
-    pkgs.gnome.atomix
-    pkgs.gnome-tour
-    pkgs.gnome.geary
-  ];
+  # environment.gnome.excludePackages = [
+  #   pkgs.gnome.cheese
+  #   pkgs.gnome-photos
+  #   pkgs.gnome.gnome-music
+  #   pkgs.gnome.gnome-terminal
+  #   pkgs.gnome.gedit
+  #   pkgs.epiphany
+  #   pkgs.evince
+  #   pkgs.gnome.gnome-characters
+  #   pkgs.gnome.totem
+  #   pkgs.gnome.tali
+  #   pkgs.gnome.iagno
+  #   pkgs.gnome.hitori
+  #   pkgs.gnome.atomix
+  #   pkgs.gnome-tour
+  #   pkgs.gnome.geary
+  # ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -34,9 +41,13 @@
     gnomeExtensions.appindicator
   ];
 
-  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+  services.udev.packages = with pkgs; [
+    gnome.gnome-settings-daemon
+    xdg-desktop-portal
+    xdg-desktop-portal-gtk
+  ];
   services.dbus.packages = with pkgs; [ gnome2.GConf ];
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 }

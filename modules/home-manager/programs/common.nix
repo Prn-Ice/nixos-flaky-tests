@@ -1,4 +1,15 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }:
+
+let
+  nixpkgsZoom = import inputs.nixpkgs-zoom {
+    inherit (pkgs.stdenv.hostPlatform) system;
+    # inherit (config.nixpkgs) config;
+    config = {
+      allowUnfree = true;
+    };
+  };
+in
+{
   home.packages = with pkgs; [
     # command line tools
     neofetch
@@ -36,6 +47,9 @@
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
+    graphviz
+    zgrviewer
+    nix-du
 
     # productivity
     hugo # static site generator
@@ -61,13 +75,15 @@
     clinfo
     glxinfo
     vulkan-tools
-    xdg-utils  # for xdg-open etc.
-    
+    xdg-utils # for xdg-open etc.
+
     # communication
     slack
     discord
-    zoom-us
+    # zoom-us
+    nixpkgsZoom.zoom-us
     megasync
+    localsend
 
     # vpn
     protonvpn-gui

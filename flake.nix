@@ -14,6 +14,9 @@
     # Official NixOS package source, using nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    # Pinned zoom version to fix issues with screen share
+    nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf01242193635022";
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -97,7 +100,7 @@
 
           # Set all input parameters as specialArgs of all sub-modules
           # so that we can use the `nix-vscode-extensions` input in sub-modules
-          specialArgs = inputs;
+          specialArgs = { inherit inputs; };
 
           modules = [
             # Import the configuration.nix here, so that the
@@ -109,7 +112,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.extraSpecialArgs = inputs;
+              home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.prnice = import ./modules/home-manager;
 
               # Optionally, use home-manager.extraSpecialArgs to pass
