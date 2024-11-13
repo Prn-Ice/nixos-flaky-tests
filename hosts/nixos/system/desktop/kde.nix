@@ -3,6 +3,10 @@
 {
   xdg.portal = {
     enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-kde
+    ];
     # there is some weirdness happening here
     # https://github.com/NixOS/nixpkgs/issues/160923
     xdgOpenUsePortal = true;
@@ -16,8 +20,8 @@
     sddm.enable = true;
     sddm.enableHidpi = true;
     defaultSession = "plasma";
-    sddm.theme = "where_is_my_sddm_theme";
-    # sddm.theme = "catppuccin-mocha";
+    #sddm.theme = "where_is_my_sddm_theme";
+    sddm.theme = "catppuccin-mocha";
   };
 
   # Enable the KDE Plasma Desktop Environment.
@@ -28,7 +32,7 @@
   environment.systemPackages = with pkgs; [
     kdePackages.yakuake
     kdePackages.sddm-kcm
-    
+
     # Theme packages
     (pkgs.where-is-my-sddm-theme.override {
       # themeConfig.General = {
@@ -39,7 +43,7 @@
     (
       catppuccin-sddm.override {
         flavor = "mocha";
-        background = "${../theme/assets/wallpaper.png}";
+        background = "${../theme/assets/legion_armored_soldier.png}";
         loginBackground = true;
       }
     )
