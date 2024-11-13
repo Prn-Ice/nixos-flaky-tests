@@ -11,21 +11,24 @@ in
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
+      # efiSysMountPoint = "/boot/efi";
     };
+
+    # Uncomment before bios update
+    # systemd-boot = {
+    #   enable = true;
+
+    #   # Limit the number of generations to keep
+    #   configurationLimit = 10;
+    # };
+
     grub = {
       efiSupport = true;
       useOSProber = true;
       device = "nodev";
       memtest86.enable = true;
+      # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
       theme = grub-theme;
-    };
-
-    # Keep systemd-boot option, when grub crashes its a good backup
-    systemd-boot = {
-      enable = true;
-
-      # Limit the number of generations to keep
-      configurationLimit = 10;
     };
   };
 
@@ -36,4 +39,19 @@ in
 
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  # Use 6.11 kernel
+  # boot.kernelPackages = pkgs.linuxPackages_6_11;
+
+  # Use 6.11.1 kernel (Pinned)
+  # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_11.override {
+  #   argsOverride = rec {
+  #     src = pkgs.fetchurl {
+  #       url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+  #       sha256 = "sha256-Kjcjc7Th6vVfKi8QS/qRR37JsmOs+POu0I9Ni9x47j0=";
+  #     };
+  #     version = "6.11.1";
+  #     modDirVersion = "6.11.1";
+  #   };
+  # });
 }
