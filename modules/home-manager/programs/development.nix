@@ -4,6 +4,7 @@
   home.packages = with pkgs; [
     # android
     android-studio
+    jetbrains.idea-community
 
     # networking tools
     ngrok # a tunneling HTTP proxy
