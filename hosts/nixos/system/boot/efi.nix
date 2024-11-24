@@ -7,10 +7,13 @@ let
   };
 in
 {
+  # Fix sleep issue
+  boot.blacklistedKernelModules = [ "ideapad_laptop" ];
+
   # Bootloader
   boot.loader = {
     efi = {
-      canTouchEfiVariables = true;
+      # canTouchEfiVariables = true;
       # efiSysMountPoint = "/boot/efi";
     };
 
@@ -27,7 +30,7 @@ in
       useOSProber = true;
       device = "nodev";
       memtest86.enable = true;
-      # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
+      efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
       theme = grub-theme;
     };
   };
