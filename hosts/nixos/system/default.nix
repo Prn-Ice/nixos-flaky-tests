@@ -35,6 +35,7 @@
     xorg.libxcb
     xorg.libxcb.dev
     gparted
+    kdiskmark
   ];
 
   # This value determines the NixOS release from which the default

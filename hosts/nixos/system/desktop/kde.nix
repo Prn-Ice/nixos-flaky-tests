@@ -32,6 +32,10 @@
   environment.systemPackages = with pkgs; [
     kdePackages.yakuake
     kdePackages.sddm-kcm
+    kdePackages.krecorder
+    kdePackages.kget
+    kdePackages.dragon
+    haruna
 
     # Theme packages
     (pkgs.where-is-my-sddm-theme.override {

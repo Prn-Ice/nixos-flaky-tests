@@ -84,6 +84,7 @@ in
     nixpkgsZoom.zoom-us
     megasync
     localsend
+    transmission_4-qt6
 
     # vpn
     protonvpn-gui
