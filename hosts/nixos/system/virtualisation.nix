@@ -16,9 +16,11 @@
 
     spiceUSBRedirection.enable = true;
 
-    docker = {
-      enable = true;
-      autoPrune.enable = true;
-    };
+    # docker = {
+    #   enable = true;
+    #   autoPrune.enable = true;
+    # };
+
+    waydroid.enable = true;
   };
 }

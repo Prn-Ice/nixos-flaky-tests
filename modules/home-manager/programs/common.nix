@@ -76,11 +76,11 @@ in
     glxinfo
     vulkan-tools
     xdg-utils # for xdg-open etc.
+    wl-clipboard
 
     # communication
     slack
     discord
-    # zoom-us
     nixpkgsZoom.zoom-us
     megasync
     localsend
