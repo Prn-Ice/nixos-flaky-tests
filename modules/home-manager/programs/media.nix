@@ -5,9 +5,9 @@
     # audio control
     pavucontrol
     playerctl
-    pulsemixer
+    pulsemixer 
     # easyeffects
-    jamesdsp
+    # jamesdsp
 
     # images
     imv

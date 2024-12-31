@@ -28,7 +28,7 @@
     git
     wget
     curl
-    linuxKernel.packages.linux_latest_libre.cpupower
+    # linuxKernel.packages.linux_latest_libre.cpupower
     adwaita-icon-theme
     gnome-themes-extra
     pop-gtk-theme

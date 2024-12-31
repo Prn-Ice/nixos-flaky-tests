@@ -16,6 +16,9 @@ let
       };
 
       nvidia = {
+        # Optionally, you may need to select the appropriate driver version for your specific GPU.
+        package = config.boot.kernelPackages.nvidiaPackages.beta;
+
         # Modesetting is needed most of the time
         modesetting.enable = true;
 
@@ -39,9 +42,6 @@ let
         # Enable the Nvidia settings menu,
         # accessible via `nvidia-settings`.
         nvidiaSettings = true;
-
-        # Optionally, you may need to select the appropriate driver version for your specific GPU.
-        package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
 
         prime = {
           sync.enable = true;
