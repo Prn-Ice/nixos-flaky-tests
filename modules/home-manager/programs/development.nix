@@ -1,10 +1,15 @@
 { pkgs, ... }:
 
-{
+let
+  windsurf = pkgs.callPackage ./pkgs/windsurf { };
+in {
   home.packages = with pkgs; [
+    # development environments
+    windsurf
+
     # android
     android-studio
-    jetbrains.idea-community
+    # jetbrains.idea-community-
 
     # networking tools
     ngrok # a tunneling HTTP proxy
