@@ -1,4 +1,13 @@
 # Custom packages specific to my home-manager configuration
-{ pkgs ? import <nixpkgs> { } }: {
-  windsurf = pkgs.callPackage ./windsurf { };
+{pkgs, ...}: let
+  windsurf = pkgs.callPackage ./windsurf {};
+  tidal-dl-ng = pkgs.callPackage ./tidal-dl-ng {
+    inherit (pkgs) fetchFromGitHub python312Packages lib system;
+  };
+in {
+
+  home.packages = [
+    windsurf
+    tidal-dl-ng
+  ];
 }
