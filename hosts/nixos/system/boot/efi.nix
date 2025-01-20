@@ -27,7 +27,7 @@ in
 
     grub = {
       efiSupport = true;
-      # useOSProber = true;
+      useOSProber = true;
       device = "nodev";
       memtest86.enable = true;
       efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
