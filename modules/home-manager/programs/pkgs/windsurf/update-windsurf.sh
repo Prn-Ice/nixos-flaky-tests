@@ -19,7 +19,7 @@ if [ "$latest_version" != "$current_version" ]; then
     sed -i "s/version = \".*\"/version = \"$latest_version\"/" "$WINDSURF_NIX"
 
     # Construct the new URL
-    new_url="https://windsurf-stable.codeiumdata.com/linux-x64/stable/599ce698a84d43160da884347f22f6b77d0c8415/Windsurf-linux-x64-$latest_version.tar.gz"
+    new_url="https://windsurf-stable.codeiumdata.com/linux-x64/stable/aa53e9df956d9bc7cb1835f8eaa47768ce0e5b44/Windsurf-linux-x64-$latest_version.tar.gz"
 
     # Fetch the new tarball and get its hash
     new_hash=$(nix-prefetch-url --type sha256 "$new_url")
