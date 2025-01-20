@@ -35,6 +35,7 @@
     kdePackages.krecorder
     kdePackages.kget
     kdePackages.dragon
+    kdePackages.kdenlive
     haruna
 
     # Theme packages
