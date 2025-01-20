@@ -9,6 +9,9 @@
     spice-protocol
   ];
 
+  # Make android-studio happy about license
+  nixpkgs.config.android_sdk.accept_license = true;
+
   virtualisation = {
     libvirtd = {
       enable = true;
