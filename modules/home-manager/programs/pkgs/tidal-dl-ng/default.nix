@@ -1,8 +1,6 @@
 {
   lib,
   fetchFromGitHub,
-  # Build inputs
-  python312Packages,
   system ? builtins.currentSystem,
 }:
 
@@ -21,17 +19,12 @@ mkPoetryApplication {
   projectDir = fetchFromGitHub {
     owner = "exislow";
     repo = "tidal-dl-ng";
-    rev = "v0.23.0";
-    hash = "sha256-JrR58NoGxChhj8i7sWezPOzgnYP5w9AZ0u/CK/Mlu08=";
+    rev = "v0.24.1";
+    hash = "sha256-+HkO3ude9I7IPY/mtMIEoEOYVCwA/tz0EKO/mduljZU=";
   };
   python = pkgs.python312;
   preferWheels = true;
-  extras = []; # Don't include GUI extras since we're using system packages
-
-  buildInputs = with python312Packages; [
-    pyside6
-    pyqtdarktheme
-  ];
+  extras = ["gui"];
 
   meta = with lib; {
     homepage = "https://github.com/exislow/tidal-dl-ng";
