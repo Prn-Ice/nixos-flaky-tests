@@ -4,6 +4,7 @@
   imports = [
     ./nvidia.nix
     ./no_nvidia.nix
+    ./obs_webcam.nix
     # ./legion_slim.nix
     ./rgb.nix
   ];
