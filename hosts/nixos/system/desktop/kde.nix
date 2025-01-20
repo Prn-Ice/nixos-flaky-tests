@@ -20,8 +20,8 @@
     sddm.enable = true;
     sddm.enableHidpi = true;
     defaultSession = "plasma";
-    #sddm.theme = "where_is_my_sddm_theme";
-    sddm.theme = "catppuccin-mocha";
+    sddm.theme = "where_is_my_sddm_theme";
+    # sddm.theme = "catppuccin-mocha";
   };
 
   # Enable the KDE Plasma Desktop Environment.
