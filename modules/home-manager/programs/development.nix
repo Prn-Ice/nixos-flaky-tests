@@ -13,6 +13,7 @@ in {
     (android-studio.withSdk androidSdk)
 
     jetbrains.idea-community
+    windsurf
 
     # networking tools
     ngrok # a tunneling HTTP proxy
