@@ -19,8 +19,8 @@ mkPoetryApplication {
   projectDir = fetchFromGitHub {
     owner = "exislow";
     repo = "tidal-dl-ng";
-    rev = "v0.24.1";
-    hash = "sha256-+HkO3ude9I7IPY/mtMIEoEOYVCwA/tz0EKO/mduljZU=";
+    rev = "v0.24.6";
+    hash = "sha256-fsGI9GuwIAPiOvmR+YRb5jYXR/BMkX6W5yMc4t0rfBE=";
   };
   python = pkgs.python312;
   preferWheels = true;
