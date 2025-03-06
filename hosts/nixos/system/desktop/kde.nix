@@ -5,7 +5,7 @@
     enable = true;
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-kde
+      kdePackages.xdg-desktop-portal-kde
     ];
     # there is some weirdness happening here
     # https://github.com/NixOS/nixpkgs/issues/160923
@@ -36,6 +36,8 @@
     kdePackages.kget
     kdePackages.dragon
     kdePackages.kdenlive
+    kdePackages.spectacle
+    kdePackages.filelight
     haruna
 
     # Theme packages

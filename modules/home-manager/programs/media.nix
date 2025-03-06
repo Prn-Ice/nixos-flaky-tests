@@ -12,7 +12,6 @@
     # images
     imv
     ffmpeg
-    spectacle
     upscayl
 
     # music
