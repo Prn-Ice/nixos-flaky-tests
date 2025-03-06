@@ -1,14 +1,16 @@
-{ config, lib, pkgs, ... }:
-
-let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}: let
   nvidiaConfig = {
-    boot.initrd.kernelModules = [ "nvidia" ];
+    boot.initrd.kernelModules = ["nvidia"];
 
     # Load nvidia driver for Xorg and Wayland
-    services.xserver.videoDrivers = [ "nvidia" ];
+    services.xserver.videoDrivers = ["nvidia"];
 
     hardware = {
-
       # Enable OpenGL
       graphics = {
         enable = true;
@@ -63,15 +65,17 @@ let
       unigine-heaven
       phoronix-test-suite
     ];
+
+    # systemd.user.services.docker.path = [pkgs.nvidia-container-toolkit];
+    hardware.nvidia-container-toolkit.enable = true;
   };
-in
-{
+in {
   # Nvidia dGPU is asleep by default but can be turned on with command
   specialisation = {
     nvidia-on-call.configuration = lib.mkMerge [
       nvidiaConfig
       {
-        system.nixos.tags = [ "nvidia-on-call" ];
+        system.nixos.tags = ["nvidia-on-call"];
         hardware.nvidia = {
           prime.offload.enable = lib.mkForce true;
           prime.offload.enableOffloadCmd = lib.mkForce true;
