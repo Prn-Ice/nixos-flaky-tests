@@ -12,7 +12,7 @@ in {
     # android
     (android-studio.withSdk androidSdk)
 
-    # jetbrains.idea-community
+    jetbrains.idea-community
 
     # networking tools
     ngrok # a tunneling HTTP proxy
