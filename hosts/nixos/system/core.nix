@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 {
   # List services that you want to enable:
@@ -6,11 +6,11 @@
   # Enable fstrim for extending ssd life
   services.fstrim.enable = lib.mkDefault true;
 
-  # Disble fingerprint temporarily
   # When bios gets updated, grub breaks
   # Its difficult to fix grub when auth is controlled by fprint
 
   # Enable fingerprint reader
+  # NOTE: Currently broken
   # services.fprintd = {
   #   enable = true;
   #   package = pkgs.fprintd-tod;

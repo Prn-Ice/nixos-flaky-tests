@@ -81,7 +81,8 @@ in
     slack
     discord
     nixpkgsZoom.zoom-us
-    megasync
+    # Failing build
+    # megasync
     localsend
     transmission_4-qt6
 
