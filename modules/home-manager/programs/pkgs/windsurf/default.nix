@@ -11,13 +11,13 @@
 let
   plat = "linux-x64";  # Assuming it's only for x86_64 Linux, adjust if needed
   archive_fmt = "tar.gz";
-  sha256 = "137sbcrg3gjsjcqzngvc9cb975d592kl3l2xn8878n6671h6ikvd";
+  sha256 = "sha256-z4J8r/GTzQjEX0D+2HoMPu1vBWObXmAp6noGDaD+0gU=";
 
 in
 callPackage ./generic.nix rec {
   inherit commandLineArgs useVSCodeRipgrep;
 
-  version = "1.3.4";
+  version = "1.9.2";
   pname = "windsurf";
 
   executableName = "windsurf";
@@ -25,7 +25,7 @@ callPackage ./generic.nix rec {
   shortName = "windsurf";
 
   src = fetchurl {
-    url = "https://windsurf-stable.codeiumdata.com/${plat}/stable/ff5014a12e72ceb812f9e7f61876befac66725e5/Windsurf-${plat}-${version}.${archive_fmt}";
+    url = "https://windsurf-stable.codeiumdata.com/${plat}/stable/71eeb18eeed7897bea630fcaba7d37c49c78b05e/Windsurf-${plat}-${version}.${archive_fmt}";
     inherit sha256;
   };
 
