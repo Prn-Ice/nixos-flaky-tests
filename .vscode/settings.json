@@ -10,6 +10,7 @@
         "specialisation",
         "unigine",
         "vaapi",
-        "Vdpau"
+        "Vdpau",
+        "weylus"
     ]
 }
