@@ -6,7 +6,7 @@
     ./boot/efi.nix
     ./desktop/kde.nix
     # ./desktop/gnome.nix
-    ./services/ssh.nix
+    ./services
 
     ./i18n.nix
     ./networking.nix
@@ -34,8 +34,11 @@
     pop-gtk-theme
     xorg.libxcb
     xorg.libxcb.dev
+    exfatprogs
     gparted
     kdiskmark
+    # Build failing
+    # ventoy-full-qt
   ];
 
   # This value determines the NixOS release from which the default
