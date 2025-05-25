@@ -10,15 +10,14 @@
   # Its difficult to fix grub when auth is controlled by fprint
 
   # Enable fingerprint reader
-  # NOTE: Currently broken
-  # services.fprintd = {
-  #   enable = true;
-  #   package = pkgs.fprintd-tod;
-  #   tod = {
-  #     enable = true;
-  #     driver = pkgs.libfprint-2-tod1-elan;
-  #   };
-  # };
+  services.fprintd = {
+    enable = true;
+    package = pkgs.fprintd-tod;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-elan;
+    };
+  };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
