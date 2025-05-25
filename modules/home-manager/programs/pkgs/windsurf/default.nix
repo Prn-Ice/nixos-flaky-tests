@@ -11,7 +11,7 @@
 let
   plat = "linux-x64";  # Assuming it's only for x86_64 Linux, adjust if needed
   archive_fmt = "tar.gz";
-  sha256 = "sha256-z4J8r/GTzQjEX0D+2HoMPu1vBWObXmAp6noGDaD+0gU=";
+  sha256 = "sha256-7lpKw4+aJRilRCnLI1uudtdLP/8PWUfb/ClzjXjyhUI=";
 
 in
 callPackage ./generic.nix rec {
@@ -25,7 +25,7 @@ callPackage ./generic.nix rec {
   shortName = "windsurf";
 
   src = fetchurl {
-    url = "https://windsurf-stable.codeiumdata.com/${plat}/stable/71eeb18eeed7897bea630fcaba7d37c49c78b05e/Windsurf-${plat}-${version}.${archive_fmt}";
+    url = "https://windsurf-stable.codeiumdata.com/${plat}/stable/8cb7f313303c8b35844a56b6fe0f76e508261569/Windsurf-${plat}-${version}.${archive_fmt}";
     inherit sha256;
   };
 
