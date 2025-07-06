@@ -13,24 +13,24 @@ in
   # Bootloader
   boot.loader = {
     efi = {
-      # canTouchEfiVariables = true;
+      canTouchEfiVariables = true;
       # efiSysMountPoint = "/boot/efi";
     };
 
     # Uncomment before bios update
-    # systemd-boot = {
-    #   enable = true;
+    systemd-boot = {
+      enable = true;
 
-    #   # Limit the number of generations to keep
-    #   configurationLimit = 10;
-    # };
+      # Limit the number of generations to keep
+      configurationLimit = 10;
+    };
 
     grub = {
       efiSupport = true;
       useOSProber = true;
       device = "nodev";
       memtest86.enable = true;
-      efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
+      # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
       theme = grub-theme;
     };
   };
@@ -43,8 +43,8 @@ in
   # Use latest kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Use 6.11 kernel
-  # boot.kernelPackages = pkgs.linuxPackages_6_11;
+  # Use 6.14 kernel
+  # boot.kernelPackages = pkgs.linuxPackages_6_14;
 
   # Use 6.11.1 kernel (Pinned)
   # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_11.override {
