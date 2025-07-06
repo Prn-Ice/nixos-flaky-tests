@@ -27,6 +27,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # nix-alien, used for running unpatched binaries on Nix/NixOS 
+    nix-alien.url = "github:thiagokokada/nix-alien";
+
     # set hardware config url
     # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
   };
@@ -45,6 +48,7 @@
     { self
     , nixpkgs
     , home-manager
+    , nix-alien
     , ...
     }@inputs: {
       nixosConfigurations = {
