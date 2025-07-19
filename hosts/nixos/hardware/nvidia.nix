@@ -4,10 +4,15 @@
   pkgs,
   ...
 }: let
+  # Detect whether we are in the no-nvidia specialisation
+  isNoNvidia = builtins.elem "no-nvidia" config.system.nixos.tags;
+
+  # Common NVIDIA configuration
   nvidiaConfig = {
+    # Load kernel modules early
     boot.initrd.kernelModules = ["nvidia"];
 
-    # Load nvidia driver for Xorg and Wayland
+    # Load NVIDIA driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
 
     hardware = {
@@ -18,75 +23,93 @@
       };
 
       nvidia = {
-        # Optionally, you may need to select the appropriate driver version for your specific GPU.
+        # Driver package (change if you need a specific version)
         package = config.boot.kernelPackages.nvidiaPackages.beta;
 
-        # Modesetting is needed most of the time
+        # Enable KMS
         modesetting.enable = true;
 
-        # Enable power management (do not disable this unless you have a reason to).
-        # Likely to cause problems on laptops and with screen tearing if disabled.
-        # Note: commented out cause of issues with sleep
-        powerManagement = {
-          enable = true;
-        };
+        # Power-management (recommended on laptops)
+        powerManagement.enable = true;
 
-        # Fix wake from sleep issues
-        # nvidiaPersistenced = false;
-
-        # Use the open source version of the kernel module ("nouveau")
-        # Note that this offers much lower performance and does not
-        # support all the latest Nvidia GPU features.
-        # You most likely don't want this.
-        # Only available on driver 515.43.04+
+        # Do NOT use the open-source variant (nouveau)
         open = false;
 
-        # Enable the Nvidia settings menu,
-        # accessible via `nvidia-settings`.
+        # Expose nvidia-settings GUI
         nvidiaSettings = true;
 
+        # Default to PRIME sync
         prime = {
           sync.enable = true;
-
           amdgpuBusId = "PCI:65:0:0";
           nvidiaBusId = "PCI:1:0:0";
         };
       };
+
+      # Container toolkit (used by Docker, Podman, etc.)
+      nvidia-container-toolkit.enable = true;
     };
 
-    # Packages related to NVIDIA graphics
+    # NVIDIA-related userland packages
     environment.systemPackages = with pkgs; [
       vaapiVdpau
       libvdpau-va-gl
       nvidia-system-monitor-qt
 
-      # benchmark
+      # Benchmarks
       glmark2
       unigine-heaven
       phoronix-test-suite
     ];
-
-    # systemd.user.services.docker.path = [pkgs.nvidia-container-toolkit];
-    hardware.nvidia-container-toolkit.enable = true;
-  };
-in {
-  # Nvidia dGPU is asleep by default but can be turned on with command
-  specialisation = {
-    nvidia-on-call.configuration = lib.mkMerge [
-      nvidiaConfig
-      {
-        system.nixos.tags = ["nvidia-on-call"];
-        hardware.nvidia = {
-          prime.offload.enable = lib.mkForce true;
-          prime.offload.enableOffloadCmd = lib.mkForce true;
-          prime.sync.enable = lib.mkForce false;
-        };
-      }
-    ];
   };
 
-  # Nvidia dGPU is always on with this specialisation
-  specialisation = {
-    nvidia-always-on.configuration = nvidiaConfig;
+  # Configuration that *disables* NVIDIA entirely
+  noNvidiaConfig = {
+    # Tag this configuration so other modules can detect the disabled profile
+    system.nixos.tags = ["no-nvidia"];
+
+    # Black-list NVIDIA & nouveau modules
+    boot.extraModprobeConfig = ''
+      blacklist nouveau
+      options nouveau modeset=0
+    '';
+
+    boot.blacklistedKernelModules = ["nouveau" "nvidia" "nvidia_drm" "nvidia_modeset"];
+
+    services.udev.extraRules = ''
+      # Remove NVIDIA USB xHCI Host Controller devices, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c0330", ATTR{power/control}="auto", ATTR{remove}="1"
+      # Remove NVIDIA USB Type-C UCSI devices, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x0c8000", ATTR{power/control}="auto", ATTR{remove}="1"
+      # Remove NVIDIA Audio devices, if present
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x040300", ATTR{power/control}="auto", ATTR{remove}="1"
+      # Remove NVIDIA VGA/3D controller devices
+      ACTION=="add", SUBSYSTEM=="pci", ATTR{vendor}=="0x10de", ATTR{class}=="0x03[0-9]*", ATTR{power/control}="auto", ATTR{remove}="1"
+    '';
   };
-}
+in
+  lib.mkMerge [
+    # Base NVIDIA config (conditionally enabled)
+    (lib.mkIf (!isNoNvidia) nvidiaConfig)
+
+    # Specialisations (always defined regardless of base config)
+    {
+      specialisation = {
+        # 1. Disable NVIDIA completely
+        no-nvidia.configuration = noNvidiaConfig;
+
+        # 2. PRIME Offload (dGPU off until explicitly used)
+        nvidia-offload.configuration = lib.mkMerge [
+          nvidiaConfig
+          {
+            system.nixos.tags = ["nvidia-offload"];
+            hardware.nvidia = {
+              prime.offload.enable = lib.mkForce true;
+              prime.offload.enableOffloadCmd = lib.mkForce true;
+              prime.sync.enable = lib.mkForce false;
+            };
+          }
+        ];
+      };
+    }
+  ]
