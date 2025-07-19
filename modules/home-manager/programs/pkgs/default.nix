@@ -4,10 +4,12 @@
   tidal-dl-ng = pkgs.callPackage ./tidal-dl-ng {
     inherit (pkgs) fetchFromGitHub lib system;
   };
+  plasmavantage = pkgs.callPackage ./plasmavantage {};
 in {
   home.packages = [
     # Will remove soon, leaving for reference
     windsurf
     tidal-dl-ng
+    plasmavantage
   ];
 }
