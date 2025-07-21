@@ -7,6 +7,7 @@
     ./legion_slim.nix
     ./rgb.nix
     ./weylus.nix
+    ./hibernate.nix
   ];
 
   # Enable bluetooth
