@@ -40,6 +40,7 @@
     kdiskmark
     # Build failing
     # ventoy-full-qt
+    batmon
   ];
 
   # This value determines the NixOS release from which the default

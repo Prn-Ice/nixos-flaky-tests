@@ -32,6 +32,8 @@
 
     # set hardware config url
     # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    # Battery monitor
+    batmon.url = "github:6543/batmon";
   };
 
   # `outputs` are all the build result of the flake.
@@ -44,13 +46,7 @@
   #
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function.
-  outputs =
-    { self
-    , nixpkgs
-    , home-manager
-    , nix-alien
-    , ...
-    }@inputs: {
+    batmon,
       nixosConfigurations = {
         # By default, NixOS will try to refer the nixosConfiguration with
         # its hostname, so the system named `nixos` will use this one.
