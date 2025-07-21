@@ -1,3 +1,5 @@
+# Sources:
+# https://nixos.wiki/wiki/Nvidia
 {
   config,
   lib,
@@ -11,6 +13,9 @@
   nvidiaConfig = {
     # Load kernel modules early
     boot.initrd.kernelModules = ["nvidia"];
+
+    # May help, remove if something is off
+    boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
 
     # Load NVIDIA driver for Xorg and Wayland
     services.xserver.videoDrivers = ["nvidia"];
@@ -32,8 +37,13 @@
         # Power-management (recommended on laptops)
         powerManagement.enable = true;
 
-        # Do NOT use the open-source variant (nouveau)
-        open = false;
+        # Use the NVidia open source kernel module (not to be confused with the
+        # independent third-party "nouveau" open source driver).
+        # Support is limited to the Turing and later architectures. Full list of
+        # supported GPUs is at:
+        # https://github.com/NVIDIA/open-gpu-kernel-modules#compatible-gpus
+        # Only available from driver 515.43.04+
+        open = true;
 
         # Expose nvidia-settings GUI
         nvidiaSettings = true;
@@ -104,6 +114,11 @@ in
           {
             system.nixos.tags = ["nvidia-offload"];
             hardware.nvidia = {
+              # This makes things worse.
+              # The GPU is always in the D0 state, power draw reported by batmon is ~20w.
+              # Without this, the GPU can go into lower states(eg D3cold) and the power draw is ~13w.
+              # powerManagement.finegrained = lib.mkForce true;
+
               prime.offload.enable = lib.mkForce true;
               prime.offload.enableOffloadCmd = lib.mkForce true;
               prime.sync.enable = lib.mkForce false;
