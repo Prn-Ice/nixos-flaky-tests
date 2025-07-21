@@ -13,6 +13,7 @@
     ./nix.nix
     ./users.nix
     ./security.nix
+    ./steam.nix
     ./audio.nix
     ./fonts.nix
     ./virtualisation.nix
