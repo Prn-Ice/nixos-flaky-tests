@@ -22,6 +22,14 @@
     };
   };
 
+  security.pam.services = {
+    # Use fingerprint for sudo
+    sudo.fprintAuth = true;
+    # But not for login
+    login.fprintAuth = false;
+    sddm.fprintAuth = false;
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
