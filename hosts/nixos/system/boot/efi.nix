@@ -1,15 +1,9 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   grub-theme = pkgs.sleek-grub-theme.override {
     withStyle = "dark";
     withBanner = "Choose Your Destiny";
   };
-in
-{
-  # Fix sleep issue
-  boot.blacklistedKernelModules = [ "ideapad_laptop" ];
-
+in {
   # Bootloader
   boot.loader = {
     efi = {
@@ -25,14 +19,14 @@ in
       configurationLimit = 10;
     };
 
-    grub = {
-      efiSupport = true;
-      useOSProber = true;
-      device = "nodev";
-      memtest86.enable = true;
-      # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
-      theme = grub-theme;
-    };
+    # grub = {
+    #   efiSupport = true;
+    #   useOSProber = true;
+    #   device = "nodev";
+    #   memtest86.enable = true;
+    #   # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
+    #   theme = grub-theme;
+    # };
   };
 
   # Make sure our package is installed
