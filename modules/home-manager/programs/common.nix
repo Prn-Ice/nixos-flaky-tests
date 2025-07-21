@@ -1,6 +1,8 @@
-{ pkgs, inputs, ... }:
-
-let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   nixpkgsZoom = import inputs.nixpkgs-zoom {
     inherit (pkgs.stdenv.hostPlatform) system;
     # inherit (config.nixpkgs) config;
@@ -8,11 +10,10 @@ let
       allowUnfree = true;
     };
   };
-in
-{
+in {
   home.packages = with pkgs; [
     # command line tools
-    neofetch
+    fastfetch
     grc
 
     # archives
@@ -75,7 +76,6 @@ in
     glxinfo
     vulkan-tools
     xdg-utils # for xdg-open etc.
-    wl-clipboard
 
     # communication
     slack
@@ -88,9 +88,6 @@ in
 
     # vpn
     protonvpn-gui
-
-    # gaming
-    steam
 
     # editor
     typora
