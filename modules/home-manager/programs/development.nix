@@ -12,7 +12,8 @@ in {
     # android
     (android-studio.withSdk androidSdk)
 
-    jetbrains.idea-community
+    # Broken build
+    # jetbrains.idea-community
     # windsurf
 
     # networking tools
