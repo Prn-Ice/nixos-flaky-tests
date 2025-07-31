@@ -6,7 +6,8 @@
     deadnix
     statix
     nil
-    nixpkgs-fmt
+    nixd
+    nixfmt-rfc-style
     devbox
     shfmt
   ];
