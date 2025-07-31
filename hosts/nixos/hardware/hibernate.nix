@@ -7,9 +7,13 @@
   # Suspend first then hibernate when closing the lid
   services.logind.lidSwitch = "suspend-then-hibernate";
 
+  # suspend to RAM (deep) rather than `s2idle`
+  # boot.kernelParams = ["mem_sleep_default=deep"];
+
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
+    SuspendState=mem
   '';
 
   swapDevices = [
