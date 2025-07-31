@@ -5,20 +5,21 @@
   lib,
   pkgs,
   ...
-}: let
+}:
+let
   # Detect whether we are in the no-nvidia specialisation
   isNoNvidia = builtins.elem "no-nvidia" config.system.nixos.tags;
 
   # Common NVIDIA configuration
   nvidiaConfig = {
     # Load kernel modules early
-    boot.initrd.kernelModules = ["nvidia"];
+    boot.initrd.kernelModules = [ "nvidia" ];
 
     # May help, remove if something is off
-    boot.extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+    boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 
     # Load NVIDIA driver for Xorg and Wayland
-    services.xserver.videoDrivers = ["nvidia"];
+    services.xserver.videoDrivers = [ "nvidia" ];
 
     hardware = {
       # Enable OpenGL
@@ -48,9 +49,16 @@
         # Expose nvidia-settings GUI
         nvidiaSettings = true;
 
-        # Default to PRIME sync
+        # This makes things worse.
+        # The GPU is always in the D0 state, power draw reported by batmon is ~20w.
+        # Without this, the GPU can go into lower states(eg D3cold) and the power draw is ~13w.
+        # powerManagement.finegrained = lib.mkForce true;
+
+        # Default to PRIME offload
         prime = {
-          sync.enable = true;
+          # sync.enable = true;
+          offload.enable = true;
+          offload.enableOffloadCmd = true;
           amdgpuBusId = "PCI:65:0:0";
           nvidiaBusId = "PCI:1:0:0";
         };
@@ -62,8 +70,6 @@
 
     # NVIDIA-related userland packages
     environment.systemPackages = with pkgs; [
-      vaapiVdpau
-      libvdpau-va-gl
       nvidia-system-monitor-qt
 
       # Benchmarks
@@ -76,7 +82,7 @@
   # Configuration that *disables* NVIDIA entirely
   noNvidiaConfig = {
     # Tag this configuration so other modules can detect the disabled profile
-    system.nixos.tags = ["no-nvidia"];
+    system.nixos.tags = [ "no-nvidia" ];
 
     # Black-list NVIDIA & nouveau modules
     boot.extraModprobeConfig = ''
@@ -84,7 +90,12 @@
       options nouveau modeset=0
     '';
 
-    boot.blacklistedKernelModules = ["nouveau" "nvidia" "nvidia_drm" "nvidia_modeset"];
+    boot.blacklistedKernelModules = [
+      "nouveau"
+      "nvidia"
+      "nvidia_drm"
+      "nvidia_modeset"
+    ];
 
     services.udev.extraRules = ''
       # Remove NVIDIA USB xHCI Host Controller devices, if present
@@ -98,33 +109,31 @@
     '';
   };
 in
-  lib.mkMerge [
-    # Base NVIDIA config (conditionally enabled)
-    (lib.mkIf (!isNoNvidia) nvidiaConfig)
+lib.mkMerge [
+  # Base NVIDIA config (conditionally enabled)
+  (lib.mkIf (!isNoNvidia) nvidiaConfig)
 
-    # Specialisations (always defined regardless of base config)
-    {
-      specialisation = {
-        # 1. Disable NVIDIA completely
-        no-nvidia.configuration = noNvidiaConfig;
+  # Specialisations (always defined regardless of base config)
+  {
+    specialisation = {
+      # NVIDIA Only (dGPU always on). Use legion_cli hybrid-mode-disable to disable hybrid mode
+      nvidia-only.configuration = lib.mkMerge [
+        nvidiaConfig
+        {
+          system.nixos.tags = [ "nvidia-only" ];
+        }
+      ];
 
-        # 2. PRIME Offload (dGPU off until explicitly used)
-        nvidia-offload.configuration = lib.mkMerge [
-          nvidiaConfig
-          {
-            system.nixos.tags = ["nvidia-offload"];
-            hardware.nvidia = {
-              # This makes things worse.
-              # The GPU is always in the D0 state, power draw reported by batmon is ~20w.
-              # Without this, the GPU can go into lower states(eg D3cold) and the power draw is ~13w.
-              # powerManagement.finegrained = lib.mkForce true;
+      # NVIDIA with sunshine server
+      nvidia-sunshine.configuration = lib.mkMerge [
+        nvidiaConfig
+        {
+          system.nixos.tags = [ "nvidia-sunshine" ];
+        }
+      ];
 
-              prime.offload.enable = lib.mkForce true;
-              prime.offload.enableOffloadCmd = lib.mkForce true;
-              prime.sync.enable = lib.mkForce false;
-            };
-          }
-        ];
-      };
-    }
-  ]
+      # Disable NVIDIA completely
+      no-nvidia.configuration = noNvidiaConfig;
+    };
+  }
+]

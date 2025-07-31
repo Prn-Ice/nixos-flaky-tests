@@ -81,37 +81,37 @@
     (
       final: prev:
       let
-      # For local development
-      # lenovo-legion-src = lib.fileset.toSource {
-      #   root = /home/prnice/Projects/personal/LenovoLegionLinux;
-      #   fileset = lib.fileset.fromSource /home/prnice/Projects/personal/LenovoLegionLinux;
-      # };
-      lenovo-legion-src = prev.fetchFromGitHub {
-        owner = "Prn-Ice";
-        repo = "LenovoLegionLinux";
-        rev = "read_file_fix";
-        hash = "sha256-Wp/Kha5Wa+XJnQYZt8uzaWwkf9uPllp2TIXIVz60eqQ=";
-      };
+        # For local development
+        # lenovo-legion-src = lib.fileset.toSource {
+        #   root = /home/prnice/Projects/personal/LenovoLegionLinux;
+        #   fileset = lib.fileset.fromSource /home/prnice/Projects/personal/LenovoLegionLinux;
+        # };
+        lenovo-legion-src = prev.fetchFromGitHub {
+          owner = "Prn-Ice";
+          repo = "LenovoLegionLinux";
+          rev = "read_file_fix";
+          hash = "sha256-Wp/Kha5Wa+XJnQYZt8uzaWwkf9uPllp2TIXIVz60eqQ=";
+        };
       in
       rec {
-      lenovo-legion = prev.lenovo-legion.overrideAttrs (old: {
-        src = lenovo-legion-src;
+        lenovo-legion = prev.lenovo-legion.overrideAttrs (old: {
+          src = lenovo-legion-src;
 
-        propagatedBuildInputs = with pkgs; [
-          python3Packages.pyqt6
-          python3Packages.argcomplete
-          python3Packages.pyyaml
-          python3Packages.darkdetect
-          xorg.libxcb
-          python3Packages.pillow
-        ];
-      });
+          propagatedBuildInputs = with pkgs; [
+            python3Packages.pyqt6
+            python3Packages.argcomplete
+            python3Packages.pyyaml
+            python3Packages.darkdetect
+            xorg.libxcb
+            python3Packages.pillow
+          ];
+        });
 
-      lenovo-legion-module = prev.lenovo-legion-module.overrideAttrs (old: {
-        src = lenovo-legion-src;
+        lenovo-legion-module = prev.lenovo-legion-module.overrideAttrs (old: {
+          src = lenovo-legion-src;
 
-        sourceRoot = "${lenovo-legion.src.name}/kernel_module";
-      });
+          sourceRoot = "${lenovo-legion.src.name}/kernel_module";
+        });
       }
     )
   ];
@@ -134,4 +134,24 @@
   environment.systemPackages = with pkgs; [
     lenovo-legion
   ];
+
+  system.activationScripts.disableHybridMode =
+    lib.mkIf (lib.elem "nvidia-only" config.system.nixos.tags)
+      {
+        text = ''
+          echo "nvidia-only tag detected, disabling hybrid graphics mode..."
+          ${pkgs.lenovo-legion}/bin/legion_cli hybrid-mode-disable
+        '';
+        deps = [ "users" ];
+      };
+
+  system.activationScripts.enableHybridMode =
+    lib.mkIf (lib.elem "no-nvidia" config.system.nixos.tags)
+      {
+        text = ''
+          echo "no-nvidia tag detected, enabling hybrid graphics mode..."
+          ${pkgs.lenovo-legion}/bin/legion_cli hybrid-mode-enable
+        '';
+        deps = [ "users" ];
+      };
 }
