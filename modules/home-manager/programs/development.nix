@@ -1,9 +1,9 @@
 {pkgs, ...}: let
-  buildToolsVersion = "34.0.0";
   androidComposition = pkgs.androidenv.composeAndroidPackages {
-    buildToolsVersions = [buildToolsVersion "28.0.3"];
-    platformVersions = ["34" "28"];
+    buildToolsVersions = ["latest" "35.0.0" "34.0.0" "28.0.3" "27.0.1"];
+    platformVersions = ["latest" "34" "28" "27"];
     abiVersions = ["armeabi-v7a" "arm64-v8a"];
+    ndkVersions = ["28.1.13356709" "27.0.12077973"];
     includeNDK = true;
   };
   androidSdk = androidComposition.androidsdk;
