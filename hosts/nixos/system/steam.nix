@@ -7,17 +7,15 @@
   pkgs,
   ...
 }:
-with pkgs; let
-  # Detect whether we are in the nvidia-offload specialisation
-  # NOTE: Gamescope is broken when this is enabled
-  isNvidiaOffload = builtins.elem "nvidia-offload" config.system.nixos.tags;
-
+with pkgs;
+let
   # A generic function to patch the .desktop file of a given package.
   # It uses `sed` to find and replace a string in the application's .desktop file,
   # creating a new, high-priority derivation for the patched file.
-  patchDesktop = pkg: appName: from: to:
+  patchDesktop =
+    pkg: appName: from: to:
     lib.hiPrio (
-      pkgs.runCommand "$patched-desktop-entry-for-${appName}" {} ''
+      pkgs.runCommand "$patched-desktop-entry-for-${appName}" { } ''
         ${coreutils}/bin/mkdir -p $out/share/applications
         ${gnused}/bin/sed 's#${from}#${to}#g' < ${pkg}/share/applications/${appName}.desktop > $out/share/applications/${appName}.desktop
       ''
@@ -27,10 +25,12 @@ with pkgs; let
   # If `config.hardware.nvidia.prime.offload.enable` is true, it patches the
   # .desktop file to prepend "Exec=nvidia-offload ". Otherwise, it returns the
   # original package.
-  GPUOffloadApp = pkg: desktopName:
-    if config.hardware.nvidia.prime.offload.enable
-    then (patchDesktop pkg desktopName "^Exec=" "Exec=nvidia-offload ")
-    else pkg;
+  GPUOffloadApp =
+    pkg: desktopName:
+    if config.hardware.nvidia.prime.offload.enable then
+      (patchDesktop pkg desktopName "^Exec=" "Exec=nvidia-offload ")
+    else
+      pkg;
 
   steamPkg = pkgs.steam.override {
     extraEnv = {
@@ -45,18 +45,12 @@ with pkgs; let
       AMD_TEX_ANISO = 16;
     };
   };
-in {
+in
+{
   programs = {
     gamescope = {
       enable = true;
       capSysNice = true;
-      # for Prime render offload on Nvidia laptops.
-      # Also requires `hardware.nvidia.prime.offload.enable`.
-      env = lib.mkIf isNvidiaOffload {
-        __NV_PRIME_RENDER_OFFLOAD = "1";
-        __VK_LAYER_NV_optimus = "NVIDIA_only";
-        __GLX_VENDOR_LIBRARY_NAME = "nvidia";
-      };
     };
     steam = {
       enable = true;
@@ -65,7 +59,6 @@ in {
       extraPackages = with pkgs; [
         mangohud
         gamescope
-        libnma
       ];
       gamescopeSession = {
         enable = true;
