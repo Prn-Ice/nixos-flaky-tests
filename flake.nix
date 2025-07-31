@@ -15,7 +15,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
     # Pinned zoom version to fix issues with screen share
-    nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf01242193635022";
+    # nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf01242193635022";
 
     # home-manager, used for managing user configuration
     home-manager = {
@@ -27,11 +27,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # nix-alien, used for running unpatched binaries on Nix/NixOS 
+    # nix-alien, used for running unpatched binaries on Nix/NixOS
     nix-alien.url = "github:thiagokokada/nix-alien";
 
     # set hardware config url
     # nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     # Battery monitor
     batmon.url = "github:6543/batmon";
   };
@@ -46,7 +47,13 @@
   #
   # The `@` syntax here is used to alias the attribute set of the
   # inputs's parameter, making it convenient to use inside the function.
-    batmon,
+  outputs =
+    {
+      nixpkgs,
+      home-manager,
+      ...
+    }@inputs:
+    {
       nixosConfigurations = {
         # By default, NixOS will try to refer the nixosConfiguration with
         # its hostname, so the system named `nixos` will use this one.
@@ -123,4 +130,3 @@
       };
     };
 }
-
