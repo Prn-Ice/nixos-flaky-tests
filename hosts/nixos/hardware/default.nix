@@ -6,7 +6,7 @@
     ./obs_webcam.nix
     ./legion_slim.nix
     ./rgb.nix
-    ./weylus.nix
+    ./sunshine.nix
     ./hibernate.nix
   ];
 

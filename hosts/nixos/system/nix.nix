@@ -1,4 +1,4 @@
-{...}: {
+{inputs, ...}: {
   nix = {
     settings = {
       # Enable Flakes and the new command-line tool
@@ -31,8 +31,13 @@
       dates = "weekly";
       options = "--delete-older-than 1w";
     };
+
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
   };
 
   # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    cudaSupport = true;
+  };
 }
