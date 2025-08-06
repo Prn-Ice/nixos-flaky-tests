@@ -1,16 +1,8 @@
 {
   pkgs,
-  inputs,
   ...
-}: let
-  nixpkgsZoom = import inputs.nixpkgs-zoom {
-    inherit (pkgs.stdenv.hostPlatform) system;
-    # inherit (config.nixpkgs) config;
-    config = {
-      allowUnfree = true;
-    };
-  };
-in {
+}:
+{
   home.packages = with pkgs; [
     # command line tools
     fastfetch
@@ -80,7 +72,7 @@ in {
     # communication
     slack
     discord
-    nixpkgsZoom.zoom-us
+    zoom-us
     # Failing build
     # megasync
     localsend

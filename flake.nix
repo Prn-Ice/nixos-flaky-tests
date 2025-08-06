@@ -14,9 +14,6 @@
     # Official NixOS package source, using nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    # Pinned zoom version to fix issues with screen share
-    # nixpkgs-zoom.url = "github:NixOS/nixpkgs/06031e8a5d9d5293c725a50acf01242193635022";
-
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";
