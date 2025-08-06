@@ -8,12 +8,12 @@
   writeScript,
   bash,
 }: let
-  sha256 = "sha256-jgSSS5PiPtnKAOtvQyEiVS9osjYLoZPjl4xmJuKXKag=";
+  sha256 = "sha256-sLVDkkXKnAWsSmANooNXV2QYIABcIZyXGilKy5Hz8RQ=";
 in
   callPackage ./generic.nix {
     inherit commandLineArgs useVSCodeRipgrep;
 
-    version = "1.10.7";
+    version = "1.11.2";
     pname = "windsurf";
 
     executableName = "windsurf";
@@ -21,7 +21,7 @@ in
     shortName = "windsurf";
 
     src = fetchurl {
-      url = "https://windsurf-stable.codeiumdata.com/linux-x64/stable/7c493d782a6cad0516e79f070d953687991df4ec/Windsurf-linux-x64-1.10.7.tar.gz";
+      url = "https://windsurf-stable.codeiumdata.com/linux-x64/stable/a2714d538be16de1c91a0bc6fa1f52acdb0a07d2/Windsurf-linux-x64-1.11.2.tar.gz";
       inherit sha256;
     };
 
