@@ -89,3 +89,7 @@ in
     (GPUOffloadApp steamPkg "steam")
   ];
 }
+
+# TODO:
+# - Disable internal zoom scaling
+# - Fix small zoom window

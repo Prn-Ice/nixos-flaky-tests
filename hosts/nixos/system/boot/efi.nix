@@ -35,10 +35,10 @@ in {
   ];
 
   # Use latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  # Use 6.14 kernel
-  # boot.kernelPackages = pkgs.linuxPackages_6_14;
+  # Use 6.15 kernel
+  boot.kernelPackages = pkgs.linuxPackages_6_15;
 
   # Use 6.11.1 kernel (Pinned)
   # boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_11.override {
