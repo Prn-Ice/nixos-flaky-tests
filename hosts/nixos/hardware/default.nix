@@ -8,6 +8,7 @@
     ./rgb.nix
     ./sunshine.nix
     ./hibernate.nix
+    ./connector-detection.nix
   ];
 
   # Enable bluetooth

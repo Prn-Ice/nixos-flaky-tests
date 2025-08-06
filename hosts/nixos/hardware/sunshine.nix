@@ -5,13 +5,16 @@
   ...
 }:
 let
-  nvidiaConnector = "DP-1";
-  amdConnector = "eDP-2"; # sometimes "eDP-1" for some reason
+  # Import connector values from generated Nix file with fallback
+  detectedConnectors = import ../../../generated/connectors.nix;
+
+  nvidiaConnector = detectedConnectors.nvidiaConnector;
+  amdConnector = detectedConnectors.amdConnector;
   monitorIndex = "1";
   waylandDisplayIndex = "2";
   edidFile = ./SAMTULT.bin;
 
-  # Check if nvidia-sunshine tag is present
+  # Check if nvidia-sunshine tag is present AND connector file exists
   isSunshineEnabled = builtins.elem "nvidia-sunshine" config.system.nixos.tags;
 in
 {
