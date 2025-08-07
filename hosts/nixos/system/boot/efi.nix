@@ -12,21 +12,21 @@ in {
     };
 
     # Uncomment before bios update
-    systemd-boot = {
-      enable = true;
+    # systemd-boot = {
+    #   enable = true;
 
-      # Limit the number of generations to keep
-      configurationLimit = 10;
-    };
-
-    # grub = {
-    #   efiSupport = true;
-    #   useOSProber = true;
-    #   device = "nodev";
-    #   memtest86.enable = true;
-    #   # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
-    #   theme = grub-theme;
+    #   # Limit the number of generations to keep
+    #   configurationLimit = 10;
     # };
+
+    grub = {
+      efiSupport = true;
+      useOSProber = true;
+      device = "nodev";
+      memtest86.enable = true;
+      # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
+      theme = grub-theme;
+    };
   };
 
   # Make sure our package is installed
