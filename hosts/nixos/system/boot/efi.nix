@@ -1,9 +1,11 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   grub-theme = pkgs.sleek-grub-theme.override {
     withStyle = "dark";
     withBanner = "Choose Your Destiny";
   };
-in {
+in
+{
   # Bootloader
   boot.loader = {
     efi = {

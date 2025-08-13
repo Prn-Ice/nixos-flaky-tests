@@ -32,6 +32,12 @@
 
     # Battery monitor
     batmon.url = "github:6543/batmon";
+
+    # Zen Browser, Firefox fork. Currently Unstable.
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # `outputs` are all the build result of the flake.
@@ -112,10 +118,13 @@
             # Note: configuration.nix itself is also a Nix Module,
             ./hosts/nixos
 
+            # inputs.zen-browser.homeModules.default
+
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
+              home-manager.sharedModules = [ inputs.zen-browser.homeModules.beta ];
               home-manager.extraSpecialArgs = { inherit inputs; };
               home-manager.users.prnice = import ./modules/home-manager;
 
