@@ -1,5 +1,7 @@
 # Prince's NixOS Configuration
 
+> **Note:** This README was generated with AI assistance to provide comprehensive documentation of the repository structure.
+
 This repository contains a NixOS configuration using flakes for managing both system-level and user-level configurations. It's specifically tailored for a gaming laptop setup with advanced hardware support.
 
 ## Repository Structure
