@@ -2,35 +2,35 @@
 # https://nixos.wiki/wiki/Nvidia
 # https://wiki.nixos.org/wiki/Steam
 {
-  lib,
-  config,
   pkgs,
   ...
 }:
 with pkgs;
 let
+  # NOTE: Hold off on this for now
   # A generic function to patch the .desktop file of a given package.
   # It uses `sed` to find and replace a string in the application's .desktop file,
   # creating a new, high-priority derivation for the patched file.
-  patchDesktop =
-    pkg: appName: from: to:
-    lib.hiPrio (
-      pkgs.runCommand "$patched-desktop-entry-for-${appName}" { } ''
-        ${coreutils}/bin/mkdir -p $out/share/applications
-        ${gnused}/bin/sed 's#${from}#${to}#g' < ${pkg}/share/applications/${appName}.desktop > $out/share/applications/${appName}.desktop
-      ''
-    );
+  # patchDesktop =
+  #   pkg: appName: from: to:
+  #   lib.hiPrio (
+  #     pkgs.runCommand "$patched-desktop-entry-for-${appName}" { } ''
+  #       ${coreutils}/bin/mkdir -p $out/share/applications
+  #       ${gnused}/bin/sed 's#${from}#${to}#g' < ${pkg}/share/applications/${appName}.desktop > $out/share/applications/${appName}.desktop
+  #     ''
+  #   );
 
+  # NOTE: Hold off on this for now
   # Wraps a package to automatically use nvidia-offload if PRIME offload is enabled.
   # If `config.hardware.nvidia.prime.offload.enable` is true, it patches the
   # .desktop file to prepend "Exec=nvidia-offload ". Otherwise, it returns the
   # original package.
-  GPUOffloadApp =
-    pkg: desktopName:
-    if config.hardware.nvidia.prime.offload.enable then
-      (patchDesktop pkg desktopName "^Exec=" "Exec=nvidia-offload ")
-    else
-      pkg;
+  # GPUOffloadApp =
+  #   pkg: desktopName:
+  #   if config.hardware.nvidia.prime.offload.enable then
+  #     (patchDesktop pkg desktopName "^Exec=" "Exec=nvidia-offload ")
+  #   else
+  #     pkg;
 
   steamPkg = pkgs.steam.override {
     extraEnv = {
@@ -56,10 +56,6 @@ in
       enable = true;
       extest.enable = true;
       package = steamPkg;
-      extraPackages = with pkgs; [
-        mangohud
-        gamescope
-      ];
       gamescopeSession = {
         enable = true;
         # Args to pass to gamescope
@@ -68,6 +64,7 @@ in
           "--hdr-enabled"
           "--mangoapp" # performance overlay
           "--rt"
+          "--expose-wayland"
           "--steam"
         ];
         # Args to pass to steam
@@ -77,16 +74,28 @@ in
         ];
       };
     };
+    # nm-applet.enable = true;
   };
 
   # Not sure what this does, maybe remove
   services.getty.autologinUser = "prnice";
 
+  # NOTE: Hold off on this for now
   # If nvidia offload is enabled, install our patched .desktop file.
   # This will be found by the desktop environment and override the default one,
   # effectively launching Steam with nvidia-offload.
-  environment.systemPackages = lib.mkIf config.hardware.nvidia.prime.offload.enable [
-    (GPUOffloadApp steamPkg "steam")
+  # environment.systemPackages = lib.mkIf config.hardware.nvidia.prime.offload.enable [
+  #   (GPUOffloadApp steamPkg "steam")
+  # ];
+
+  environment.systemPackages = [
+    mangohud
+    protonup-qt
+    lutris
+    bottles
+    heroic
+    wine-staging
+    winetricks
   ];
 }
 
