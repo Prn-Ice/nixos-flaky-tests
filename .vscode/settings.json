@@ -9,6 +9,7 @@
         "libnvidia",
         "libplasma",
         "libvdpau",
+        "logind",
         "Modesetting",
         "nvenc",
         "openrgb",

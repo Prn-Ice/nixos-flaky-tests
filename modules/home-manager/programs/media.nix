@@ -20,7 +20,8 @@
     tidal-dl
 
     # video
-    stremio
+    # Note: Currently broken
+    # stremio
   ];
 
   programs = {

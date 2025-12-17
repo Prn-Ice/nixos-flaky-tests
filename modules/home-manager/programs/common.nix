@@ -65,7 +65,7 @@
     usbutils # lsusb
     lshw
     clinfo
-    glxinfo
+    mesa-demos
     vulkan-tools
     xdg-utils # for xdg-open etc.
 
