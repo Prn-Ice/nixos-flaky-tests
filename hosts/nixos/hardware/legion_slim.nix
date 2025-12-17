@@ -19,7 +19,7 @@
           owner = "Prn-Ice";
           repo = "LenovoLegionLinux";
           rev = "read_file_fix";
-          hash = "sha256-Wp/Kha5Wa+XJnQYZt8uzaWwkf9uPllp2TIXIVz60eqQ=";
+          hash = "sha256-QjSvgCLxX0M+bI/w3PF/AEiPLZrm494CuHhrzLudvB4=";
         };
       in
       rec {
@@ -27,6 +27,7 @@
           src = lenovo-legion-src;
 
           propagatedBuildInputs = with pkgs; [
+            python3Packages.qt6.qtbase
             python3Packages.pyqt6
             python3Packages.argcomplete
             python3Packages.pyyaml
@@ -34,6 +35,13 @@
             xorg.libxcb
             python3Packages.pillow
           ];
+
+          postPatch = ''
+            substituteInPlace legion_linux/legion.py \
+              --replace-fail "/etc/legion_linux" "$out/share/legion_linux"
+            substituteInPlace legion_linux/legion_gui.desktop \
+              --replace-fail "Icon=/usr/share/pixmaps/legion_logo.png" "Icon=legion_logo"
+          '';
         });
 
         lenovo-legion-module = prev.lenovo-legion-module.overrideAttrs (old: {
