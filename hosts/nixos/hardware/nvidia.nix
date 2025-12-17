@@ -31,6 +31,7 @@ let
       nvidia = {
         # Driver package (change if you need a specific version)
         package = config.boot.kernelPackages.nvidiaPackages.beta;
+        # package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         # Enable KMS
         modesetting.enable = true;
@@ -74,7 +75,8 @@ let
 
       # Benchmarks
       glmark2
-      unigine-heaven
+      # Currently broken
+      # unigine-heaven
       phoronix-test-suite
     ];
   };
