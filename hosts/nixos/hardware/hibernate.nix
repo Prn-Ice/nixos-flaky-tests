@@ -5,10 +5,10 @@
   boot.initrd.systemd.enable = true;
 
   # Suspend first then hibernate when closing the lid
-  services.logind.lidSwitch = "suspend-then-hibernate";
+  services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
   # suspend to RAM (deep) rather than `s2idle`
-  # boot.kernelParams = ["mem_sleep_default=deep"];
+  boot.kernelParams = ["mem_sleep_default=s2idle"];
 
   # Define time delay for hibernation
   systemd.sleep.extraConfig = ''
