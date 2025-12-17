@@ -1,10 +1,14 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   nix = {
     settings = {
       # Enable Flakes and the new command-line tool
-      experimental-features = ["nix-command" "flakes"];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
 
-      substituters = ["https://cache.nixos.org/"];
+      substituters = [ "https://cache.nixos.org/" ];
 
       extra-substituters = [
         # Nix community's cache server
@@ -22,7 +26,7 @@
       # https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-auto-optimise-store
       auto-optimise-store = true;
 
-      trusted-users = ["prnice"];
+      trusted-users = [ "prnice" ];
     };
 
     # Perform garbage collection weekly to maintain low disk usage
@@ -32,12 +36,12 @@
       options = "--delete-older-than 7d";
     };
 
-    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
   };
 
   # Allow unfree packages
   nixpkgs.config = {
     allowUnfree = true;
-    cudaSupport = true;
+    # cudaSupport = true;
   };
 }
