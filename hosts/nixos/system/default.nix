@@ -41,6 +41,7 @@
     # Build failing
     # ventoy-full-qt
     batmon
+    scrcpy
   ];
 
   # This value determines the NixOS release from which the default
