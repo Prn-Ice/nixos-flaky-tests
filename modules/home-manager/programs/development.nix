@@ -29,10 +29,11 @@ in
   home.packages = with pkgs; [
     # android
     (android-studio.withSdk androidSdk)
+    android-tools
 
     # Broken build
     # jetbrains.idea-community
-    # windsurf
+    windsurf
 
     # networking tools
     ngrok # a tunneling HTTP proxy
