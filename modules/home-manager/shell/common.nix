@@ -7,7 +7,7 @@
     statix
     nil
     nixd
-    nixfmt-rfc-style
+    nixfmt
     devbox
     shfmt
   ];

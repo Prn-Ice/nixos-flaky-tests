@@ -3,7 +3,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   # List services that you want to enable:
 
   # Enable fstrim for extending ssd life
@@ -36,16 +37,13 @@
   # Enable dconf
   programs.dconf.enable = true;
 
-  # Enable adb
-  programs.adb.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable nix-ld
   programs.nix-ld.enable = true;
   environment.systemPackages = [
-    inputs.nix-alien.packages.${pkgs.system}.nix-alien
+    inputs.nix-alien.packages.${pkgs.stdenv.hostPlatform.system}.nix-alien
   ];
   # environment.variables = {
   #   NIX_LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [

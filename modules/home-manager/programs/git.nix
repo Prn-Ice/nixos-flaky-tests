@@ -1,14 +1,18 @@
-{ pkgs
-, ...
-}: {
+{
+  pkgs,
+  ...
+}:
+{
   home.packages = [ pkgs.gh ];
 
   programs.gitui.enable = true;
   programs.git = {
     enable = true;
 
-    userName = "Prn-Ice";
-    userEmail = "stormprince77@gmail.com";
+    settings.user = {
+      name = "Prn-Ice";
+      email = "stormprince77@gmail.com";
+    };
 
     # aliases = {
     #   co = "checkout";
