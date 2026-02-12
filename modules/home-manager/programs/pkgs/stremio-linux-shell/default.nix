@@ -66,7 +66,14 @@ rustPlatform.buildRustPackage rec {
     fetchSubmodules = true;
   };
 
-  cargoHash = "sha256-9/28BCG51jPnKXbbzzNp7KQLMkLEugFQfwszRR9kmUw=";
+  cargoLock = {
+    lockFile = src + "/Cargo.lock";
+    outputHashes = {
+      "winit-0.30.11" = "sha256-5nc8cGFl4jUsJXfEtfOxFBQFRoBrM6/5xfA2c1qhmoQ=";
+      "glutin-0.32.3" = "sha256-5IX+03mQmWxlCdVC0g1q2J+ulW+nPTAhYAd25wyaHx8=";
+      "libmpv2-4.1.0" = "sha256-zXMFuajnkY8RnVGlvXlZfoMpfifzqzJnt28a+yPZmcQ=";
+    };
+  };
 
   buildFeatures = [ "offline-build" ];
 
