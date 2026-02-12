@@ -16,7 +16,18 @@
   autoPatchelfHook,
   patchelf,
   makeWrapper,
-  xorg,
+  libx11,
+  libxcomposite,
+  libxdamage,
+  libxext,
+  libxfixes,
+  libxrandr,
+  libxrender,
+  libxtst,
+  libxcursor,
+  libxi,
+  libxcb,
+  libxscrnsaver,
   alsa-lib,
   nss,
   nspr,
@@ -76,18 +87,18 @@ rustPlatform.buildRustPackage rec {
     vulkan-loader
     bzip2
     openssl
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libxcb
-    xorg.libXScrnSaver
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxrender
+    libxtst
+    libxcursor
+    libxi
+    libxcb
+    libxscrnsaver
     alsa-lib
     nss
     nspr
@@ -110,17 +121,17 @@ rustPlatform.buildRustPackage rec {
     libxkbcommon
     wayland
     vulkan-loader
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libxcb
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxrender
+    libxtst
+    libxcursor
+    libxi
+    libxcb
     alsa-lib
     nss
     nspr
@@ -142,18 +153,18 @@ rustPlatform.buildRustPackage rec {
     libxkbcommon
     wayland
     vulkan-loader
-    xorg.libX11
-    xorg.libXcomposite
-    xorg.libXdamage
-    xorg.libXext
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXcursor
-    xorg.libXi
-    xorg.libxcb
-    xorg.libXScrnSaver
+    libx11
+    libxcomposite
+    libxdamage
+    libxext
+    libxfixes
+    libxrandr
+    libxrender
+    libxtst
+    libxcursor
+    libxi
+    libxcb
+    libxscrnsaver
     alsa-lib
     nss
     nspr

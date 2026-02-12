@@ -32,7 +32,7 @@
             python3Packages.argcomplete
             python3Packages.pyyaml
             python3Packages.darkdetect
-            xorg.libxcb
+            libxcb
             python3Packages.pillow
           ];
 

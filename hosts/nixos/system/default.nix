@@ -33,8 +33,8 @@
     adwaita-icon-theme
     gnome-themes-extra
     pop-gtk-theme
-    xorg.libxcb
-    xorg.libxcb.dev
+    libxcb
+    libxcb.dev
     exfatprogs
     gparted
     kdiskmark
