@@ -8,7 +8,7 @@
   # Suspend first then hibernate when closing the lid
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 
-  # suspend to RAM (deep) rather than `s2idle`
+  # Use s2idle (platform-level idle) for suspend
   boot.kernelParams = [ "mem_sleep_default=s2idle" ];
 
   # Define time delay for hibernation
