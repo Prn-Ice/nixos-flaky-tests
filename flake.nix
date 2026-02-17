@@ -38,6 +38,9 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # MCP NixOS server for AI assistants
+    mcp-nixos.url = "github:utensils/mcp-nixos";
   };
 
   # `outputs` are all the build result of the flake.
