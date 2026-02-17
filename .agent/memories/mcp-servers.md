@@ -3,67 +3,104 @@
 Reference backup of MCP server configs used across AI tools.
 When setting up a new machine, use this as the source of truth.
 
-## Combined Config
+## Combined Config (Redacted)
 
 ```json
 {
   "mcpServers": {
-    "github-mcp-server": {
-      "command": "docker",
+    "atlassian-mcp-server": {
+      "command": "npx",
       "args": [
-        "run", "-i", "--rm",
-        "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
+        "-y",
+        "mcp-remote",
+        "https://mcp.atlassian.com/v1/sse"
+      ],
+      "env": {},
+      "disabled": "<tool-specific>"
+    },
+    "context7": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@upstash/context7-mcp",
+        "--api-key",
+        "<context7-api-key>"
+      ]
+    },
+    "mongodb-mcp-server": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mongodb-mcp-server"
       ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-pat>"
-      }
-    },
-    "nixos": {
-      "command": "mcp-nixos",
-      "args": []
+        "MDB_MCP_CONNECTION_STRING": "<mongodb-connection-string>"
+      },
+      "disabled": true
     }
   }
 }
 ```
 
-> **Note**: Replace `<your-github-pat>` with a token from https://github.com/settings/tokens
+> **Notes**
+>
+> - Do not commit real API keys or database connection strings.
+> - `atlassian-mcp-server.disabled` currently differs by tool:
+>   - Windsurf: `true`
+>   - Antigravity: `false`
 
-### github-mcp-server
-Provides GitHub API access (repos, issues, PRs, code search, etc.)
+### atlassian-mcp-server
+Atlassian MCP remote endpoint.
 
 ```json
 {
-  "command": "docker",
+  "command": "npx",
   "args": [
-    "run", "-i", "--rm",
-    "-e", "GITHUB_PERSONAL_ACCESS_TOKEN",
-    "ghcr.io/github/github-mcp-server"
+    "-y",
+    "mcp-remote",
+    "https://mcp.atlassian.com/v1/sse"
+  ],
+  "env": {},
+  "disabled": "<tool-specific>"
+}
+```
+
+### context7
+Context7 documentation MCP server.
+
+```json
+{
+  "command": "npx",
+  "args": [
+    "-y",
+    "@upstash/context7-mcp",
+    "--api-key",
+    "<context7-api-key>"
+  ]
+}
+```
+
+### mongodb-mcp-server
+MongoDB MCP server.
+
+```json
+{
+  "command": "npx",
+  "args": [
+    "-y",
+    "mongodb-mcp-server"
   ],
   "env": {
-    "GITHUB_PERSONAL_ACCESS_TOKEN": "<your-github-pat>"
-  }
+    "MDB_MCP_CONNECTION_STRING": "<mongodb-connection-string>"
+  },
+  "disabled": true
 }
 ```
-
-> **Note**: Generate a PAT at https://github.com/settings/tokens. Never commit the actual token.
-
-### nixos (mcp-nixos)
-NixOS package/option search via the `mcp-nixos` flake input.
-
-```json
-{
-  "command": "mcp-nixos",
-  "args": []
-}
-```
-
-Installed via `inputs.mcp-nixos` in `flake.nix` and added to `home.packages` in `modules/home-manager/programs/development.nix`.
 
 ## Config Locations
 
 | Tool | Path | Status |
 |---|---|---|
-| Gemini (Antigravity) | `~/.gemini/antigravity/mcp_config.json` | Both servers configured |
-| Windsurf (Codeium) | `~/.codeium/windsurf/mcp_config.json` | Empty — configure from above |
-| VS Code | `~/.config/Code/User/mcp.json` | Empty — configure from above |
+| Gemini (Antigravity) | `~/.gemini/antigravity/mcp_config.json` | Configured (`atlassian` enabled) |
+| Windsurf (Codeium) | `~/.codeium/windsurf/mcp_config.json` | Configured (`atlassian` disabled) |
+| VS Code | `~/.config/Code/User/mcp.json` | Not managed by this workflow |
