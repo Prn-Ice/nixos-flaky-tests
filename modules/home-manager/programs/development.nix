@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
   androidComposition = pkgs.androidenv.composeAndroidPackages {
     buildToolsVersions = [
@@ -27,6 +27,12 @@ let
 in
 {
   home.packages = with pkgs; [
+    # MCP server for NixOS
+    inputs.mcp-nixos.packages.${pkgs.stdenv.hostPlatform.system}.default
+
+    # AI coding agent memory system
+    beads
+
     # android
     (android-studio.withSdk androidSdk)
     android-tools
