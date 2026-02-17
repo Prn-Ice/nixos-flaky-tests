@@ -3,9 +3,10 @@
 {
   home.packages = with pkgs; [
     # audio control
+    audacity
     pavucontrol
     playerctl
-    pulsemixer 
+    pulsemixer
     # easyeffects
     # jamesdsp
 
