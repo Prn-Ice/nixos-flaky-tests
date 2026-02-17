@@ -36,8 +36,8 @@ in
     grub-theme
   ];
 
-  # Use latest kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Pinned to 6.18 — linux 6.19 is incompatible with the NVIDIA beta driver (580.126.09)
+  boot.kernelPackages = pkgs.linuxPackages_6_18;
 
   # Use 6.15 kernel
   # boot.kernelPackages = pkgs.linuxPackages_6_15;
