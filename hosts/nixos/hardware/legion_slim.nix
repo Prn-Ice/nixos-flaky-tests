@@ -61,43 +61,9 @@
   # zenpower experiment
   boot.kernelModules = [ "zenpower" ];
 
-  # Fix CS35L41 OTP_BOOT_DONE failure: redundant software reset after hardware reset
-  # causes OTP boot sequence to be interrupted. Patch from Zhang Heng (lkml 2026/3/2/895).
-  # Fixes: 2ee06ff5d7cf ("ALSA: hda: cs35l41: Force a software reset after hardware reset")
-  boot.kernelPatches = [
-    {
-      name = "cs35l41-fix-otp-boot-done";
-      patch = ./cs35l41-fix-otp-boot-done.patch;
-    }
-  ];
-
-  # Blacklist CS35L41 at boot — clean Linux boot probes at t=4.5s when I2C bus
-  # is still contested (OTP Unpack fails). Windows-first boot delays to t=6.6s
-  # and succeeds. Service below loads it after the contention window clears.
   boot.blacklistedKernelModules = [
     "k10temp"
-    "snd_hda_scodec_cs35l41_i2c"
   ];
-
-  # Deferred probe + I2C wake:
-  # 1. CS35L41 probes at t=4.5s on clean boot — I2C bus still contested, OTP Unpack fails.
-  # 2. Deferred modprobe at t=12s was also failing — AMDI0010:03 enters runtime PM suspend
-  #    after ~10s idle; first register read returns EAGAIN immediately.
-  # Fix: force AMDI0010:03 awake before modprobe, then load the module.
-  systemd.services.cs35l41-deferred-probe = {
-    description = "Load CS35L41 after early-boot I2C contention clears";
-    after = [ "sound.target" "systemd-udev-settle.service" ];
-    wantedBy = [ "sound.target" ];
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStartPre = [
-        "/run/current-system/sw/bin/sleep 5"
-        "/run/current-system/sw/bin/sh -c 'echo on > /sys/bus/platform/devices/AMDI0010:03/power/control'"
-      ];
-      ExecStart = "/run/current-system/sw/bin/modprobe snd_hda_scodec_cs35l41_i2c";
-      RemainAfterExit = true;
-    };
-  };
 
   environment.systemPackages = with pkgs; [
     lenovo-legion
