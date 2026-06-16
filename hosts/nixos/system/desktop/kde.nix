@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [
@@ -58,12 +59,12 @@
       #   backgroundMode = "none";
       # };
     })
-    (
-      catppuccin-sddm.override {
-        flavor = "mocha";
-        background = "${../theme/assets/legion_armored_soldier.png}";
-        loginBackground = true;
-      }
-    )
+    # (
+    #   catppuccin-sddm.override {
+    #     flavor = "mocha";
+    #     background = "${../theme/assets/legion_armored_soldier.png}";
+    #     loginBackground = true;
+    #   }
+    # )
   ];
 }

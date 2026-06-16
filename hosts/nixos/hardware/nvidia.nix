@@ -26,6 +26,14 @@ let
       graphics = {
         enable = true;
         enable32Bit = true;
+        extraPackages = with pkgs; [
+          nvidia-vaapi-driver
+          libvdpau-va-gl
+        ];
+        extraPackages32 = with pkgs.pkgsi686Linux; [
+          nvidia-vaapi-driver
+          libvdpau-va-gl
+        ];
       };
 
       nvidia = {
@@ -119,20 +127,19 @@ lib.mkMerge [
   {
     specialisation = {
       # NVIDIA Only (dGPU always on). Use legion_cli hybrid-mode-disable to disable hybrid mode
-      nvidia-only.configuration = lib.mkMerge [
-        nvidiaConfig
-        {
-          system.nixos.tags = [ "nvidia-only" ];
-        }
-      ];
+      nvidia-only.configuration = {
+        system.nixos.tags = [ "nvidia-only" ];
+        hardware.nvidia.prime = {
+          offload.enable = lib.mkForce false;
+          offload.enableOffloadCmd = lib.mkForce false;
+          sync.enable = lib.mkForce true;
+        };
+      };
 
       # NVIDIA with sunshine server
-      nvidia-sunshine.configuration = lib.mkMerge [
-        nvidiaConfig
-        {
-          system.nixos.tags = [ "nvidia-sunshine" ];
-        }
-      ];
+      nvidia-sunshine.configuration = {
+        system.nixos.tags = [ "nvidia-sunshine" ];
+      };
 
       # Disable NVIDIA completely
       no-nvidia.configuration = noNvidiaConfig;

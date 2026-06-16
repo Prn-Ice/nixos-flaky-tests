@@ -1,0 +1,28 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Projects/personal/LenovoLegionToolkit"
+		},
+		{
+			"path": "../../../../../Projects/personal/LenovoLegionLinux"
+		},
+		{
+			"path": "../../../../../Projects/personal/nix_flakes"
+		},
+		{
+			"path": "../../.."
+		},
+		{
+			"path": "../../../../../Projects/personal/LenovoLegionLinuxFrontend"
+		},
+		{
+			"path": "../../../../../Projects/personal/yaru.dart"
+		}
+	],
+	"settings": {
+		"cSpell.words": [
+			"sysfs",
+			"Yaru"
+		]
+	}
+}

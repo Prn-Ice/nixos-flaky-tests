@@ -14,6 +14,8 @@
       email = "stormprince77@gmail.com";
     };
 
+    signing.format = null;
+
     # aliases = {
     #   co = "checkout";
     #   pushf = "push --force-with-lease --force-if-includes";

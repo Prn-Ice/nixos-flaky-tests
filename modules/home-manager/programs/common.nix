@@ -79,7 +79,7 @@
     transmission_4-qt6
 
     # vpn
-    protonvpn-gui
+    proton-vpn
 
     # editor
     typora

@@ -11,7 +11,7 @@ stdenvNoCC.mkDerivation {
     owner = "Scias";
     repo = "plasmavantage";
     rev = "master";
-    hash = "sha256-ix26p2Oo64WFI5AF8D+HdlfwVz2wuJ+NfA5th489jPU=";
+    hash = "sha256-SUsPb7NblnTpcju1d1km5877IPnaykiKd1bHJ/D6wyw=";
   };
 
   dontBuild = true;

@@ -24,5 +24,6 @@
         "vaapi",
         "Vdpau",
         "weylus"
-    ]
+    ],
+    "nixEnvSelector.nixFile": "${workspaceFolder}/flake.nix"
 }

@@ -1,0 +1,33 @@
+--- a/sound/hda/codecs/side-codecs/cs35l41_hda.c
++++ b/sound/hda/codecs/side-codecs/cs35l41_hda.c
+@@ -1028,10 +1028,11 @@
+ 	usleep_range(2000, 2100);
+ 
+ 	regcache_cache_only(cs35l41->regmap, false);
+ 
+-	regmap_write(cs35l41->regmap, CS35L41_SFT_RESET, CS35L41_SOFTWARE_RESET);
+-	usleep_range(2000, 2100);
+-
++	if (!cs35l41->reset_gpio) {
++		regmap_write(cs35l41->regmap, CS35L41_SFT_RESET, CS35L41_SOFTWARE_RESET);
++		usleep_range(2000, 2100);
++	}
+ 	ret = cs35l41_wait_boot_done(cs35l41);
+ 	if (ret)
+ 		return ret;
+@@ -1977,12 +1978,12 @@
+ 	if (cs35l41->reset_gpio) {
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 0);
+ 		usleep_range(2000, 2100);
+ 		gpiod_set_value_cansleep(cs35l41->reset_gpio, 1);
+-	}
++	} else {
++		regmap_write(cs35l41->regmap, CS35L41_SFT_RESET, CS35L41_SOFTWARE_RESET);
++	}
+ 
+ 	usleep_range(2000, 2100);
+-	regmap_write(cs35l41->regmap, CS35L41_SFT_RESET, CS35L41_SOFTWARE_RESET);
+-	usleep_range(2000, 2100);
+ 
+ 	ret = cs35l41_wait_boot_done(cs35l41);
+ 	if (ret)

@@ -33,6 +33,9 @@ in
     # AI coding agent memory system
     beads
 
+    # AI coding assistant
+    claude-code
+
     # android
     (android-studio.withSdk androidSdk)
     android-tools
@@ -41,9 +44,13 @@ in
     # jetbrains.idea-community
     windsurf
 
+    # javascript runtime (provides node, npm, npx globally)
+    nodejs
+
     # networking tools
     ngrok # a tunneling HTTP proxy
     httpie # a command-line HTTP client
+    acli # Atlassian Command Line Interface
 
     # containers
     # docker

@@ -6,7 +6,7 @@ let
     inherit (pkgs) fetchFromGitHub lib system;
   };
   plasmavantage = pkgs.callPackage ./plasmavantage { };
-  stremio-linux-shell = pkgs.callPackage ./stremio-linux-shell { };
+  # stremio-linux-shell = pkgs.callPackage ./stremio-linux-shell { };
 in
 {
   home.packages = [
@@ -14,6 +14,6 @@ in
     # windsurf
     # tidal-dl-ng
     plasmavantage
-    stremio-linux-shell # Experimental: new Rust/CEF-based Stremio shell (beta)
+    # stremio-linux-shell # Disabled: CEF CDN (cef-builds.spotifycdn.com) unreachable
   ];
 }
