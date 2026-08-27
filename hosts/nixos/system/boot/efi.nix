@@ -36,11 +36,13 @@ in
     grub-theme
   ];
 
-  # Use latest kernel — NVIDIA confirmed working on 6.19+ (2026-04-07)
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  # Previously pinned to 6.18 — NVIDIA beta driver (580.126.09) was incompatible with 6.19, now resolved
+  # Pinned to 6.18 — linuxPackages_latest jumped to 7.1 which broke NVIDIA open driver 595.45.04
+  # (linux/of_gpio.h removed in 7.x; nixpkgs hasn't patched NVIDIA for 7.x yet as of 2026-06-19)
+  # Switch back to linuxPackages_latest once nixpkgs adds 7.x compat patches for NVIDIA 595.x
   # boot.kernelPackages = pkgs.linuxPackages_6_18;
+
+  # Previously confirmed working on 6.19+ (2026-04-07) — now EOL and removed from nixpkgs
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Use 6.15 kernel
   # boot.kernelPackages = pkgs.linuxPackages_6_15;
