@@ -17,7 +17,7 @@
 
     # music
     spotify
-    tidal-hifi
+    # tidal-hifi
     tidal-dl
 
     # video
