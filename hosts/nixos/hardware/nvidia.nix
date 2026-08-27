@@ -38,8 +38,8 @@ let
 
       nvidia = {
         # Driver package (change if you need a specific version)
-        package = config.boot.kernelPackages.nvidiaPackages.beta;
-        # package = config.boot.kernelPackages.nvidiaPackages.stable;
+        # package = config.boot.kernelPackages.nvidiaPackages.beta;
+        package = config.boot.kernelPackages.nvidiaPackages.stable;
 
         # Enable KMS
         modesetting.enable = true;
