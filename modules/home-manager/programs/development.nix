@@ -35,6 +35,8 @@ in
 
     # AI coding assistant
     claude-code
+    opencode
+    opencode-desktop
 
     # android
     (android-studio.withSdk androidSdk)
@@ -42,7 +44,7 @@ in
 
     # Broken build
     # jetbrains.idea-community
-    windsurf
+    devin-desktop
 
     # javascript runtime (provides node, npm, npx globally)
     nodejs
