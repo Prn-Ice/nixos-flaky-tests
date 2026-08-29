@@ -5,7 +5,9 @@
   ...
 }:
 {
-  # Override package to use my branch, test fan read fix
+  # Pin upstream LenovoLegionLinux with the Kernel 7 fixes (PRs #423 and #434).
+  # Drops the fork's read_file_fix branch: it was based on pre-Kernel-7 upstream
+  # and its EC fan-curve access for M1CN can be re-added later if WMI3 fails.
   nixpkgs.overlays = [
     (
       final: prev:
@@ -16,10 +18,10 @@
         #   fileset = lib.fileset.fromSource /home/prnice/Projects/personal/LenovoLegionLinux;
         # };
         lenovo-legion-src = prev.fetchFromGitHub {
-          owner = "Prn-Ice";
+          owner = "johnfanv2";
           repo = "LenovoLegionLinux";
-          rev = "read_file_fix";
-          hash = "sha256-ClJPNyN+sw71KqGDHzkQpkpc4vK1/xw+QkMbV+XOfS8=";
+          rev = "3893e203332d60effea688a3043abd86046997ad";
+          hash = "sha256-e/h/n4cYw/T+6iroF0SD564MNbi6aX+usVp0+e5LNak=";
         };
       in
       rec {
@@ -56,6 +58,18 @@
   boot.extraModulePackages = with config.boot.kernelPackages; [
     lenovo-legion-module
     zenpower
+  ];
+
+  # Serialize access to the CS35L41 I2C bus with the AMD PSP on this model only.
+  boot.kernelPatches = [
+    {
+      name = "legion-slim-amdpsp-i2c";
+      patch = ./legion-slim-amdpsp-i2c.patch;
+      structuredExtraConfig = {
+        CRYPTO_DEV_CCP_DD = lib.kernel.yes;
+        I2C_DESIGNWARE_AMDPSP = lib.kernel.yes;
+      };
+    }
   ];
 
   # zenpower experiment
