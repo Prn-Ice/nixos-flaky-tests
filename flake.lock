@@ -169,11 +169,11 @@
     "legion-frontend": {
       "flake": false,
       "locked": {
-        "lastModified": 1788122154,
-        "narHash": "sha256-jTRf4ZoIYBjUHO7tPMTdZs2UZc9j/zFi7GmLV7FivVk=",
+        "lastModified": 1788123764,
+        "narHash": "sha256-8iG+Rvopnt8eKhfS6xwKE7GgEYdZIcfxyP7NU9MgiPg=",
         "owner": "Prn-Ice",
         "repo": "LenovoLegionLinuxFrontend",
-        "rev": "479aeb5d032f7c4e43eb0c0388b60d640d4f22e3",
+        "rev": "3323b346977607d8786092c748db798ac1691b09",
         "type": "github"
       },
       "original": {
