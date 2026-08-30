@@ -14,6 +14,20 @@
     # Official NixOS package source, using nixos-unstable branch here
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    legion-frontend = {
+      url = "github:Prn-Ice/LenovoLegionLinuxFrontend";
+      flake = false;
+    };
+
+    # Local LenovoLegionLinux checkout (kernel module + CLI/GUI), pinned to
+    # an exact revision for pure evaluation. Update rev after committing
+    # driver changes. Set to the upstream pin below to return to upstream:
+    # url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=3893e203332d60effea688a3043abd86046997ad";
+    legion-driver = {
+      url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=c539a8637eb8f39a0aafe69241f921d6cc116e13";
+      flake = false;
+    };
+
     # home-manager, used for managing user configuration
     home-manager = {
       url = "github:nix-community/home-manager";

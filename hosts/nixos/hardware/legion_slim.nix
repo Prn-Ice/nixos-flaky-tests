@@ -2,26 +2,33 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
-  # Pin upstream LenovoLegionLinux with the Kernel 7 fixes (PRs #423 and #434).
-  # Drops the fork's read_file_fix branch: it was based on pre-Kernel-7 upstream
-  # and its EC fan-curve access for M1CN can be re-added later if WMI3 fails.
+  # Build LenovoLegionLinux (kernel module and CLI/GUI) from the local
+  # checkout, pinned to an exact revision through the legion-driver flake
+  # input. boot.extraModulePackages uses the kernelPackages-scoped
+  # lenovo-legion-module, which inherits src from the lenovo-legion package,
+  # so overriding the package src here covers both. To return to the pinned
+  # upstream module, restore the fetchFromGitHub definition below.
   nixpkgs.overlays = [
     (
       final: prev:
       let
-        # For local development
-        # lenovo-legion-src = lib.fileset.toSource {
-        #   root = /home/prnice/Projects/personal/LenovoLegionLinux;
-        #   fileset = lib.fileset.fromSource /home/prnice/Projects/personal/LenovoLegionLinux;
+        # Pinned upstream with the Kernel 7 fixes (PRs #423 and #434).
+        # lenovo-legion-src = prev.fetchFromGitHub {
+        #   owner = "johnfanv2";
+        #   repo = "LenovoLegionLinux";
+        #   rev = "3893e203332d60effea688a3043abd86046997ad";
+        #   hash = "sha256-e/h/n4cYw/T+6iroF0SD564MNbi6aX+usVp0+e5LNak=";
         # };
-        lenovo-legion-src = prev.fetchFromGitHub {
-          owner = "johnfanv2";
-          repo = "LenovoLegionLinux";
-          rev = "3893e203332d60effea688a3043abd86046997ad";
-          hash = "sha256-e/h/n4cYw/T+6iroF0SD564MNbi6aX+usVp0+e5LNak=";
+        # Wrap the flake input so the source carries the "source" name that
+        # nixpkgs' lenovo-legion-module sourceRoot ("${src.name}/kernel_module")
+        # expects from fetchFromGitHub-style sources.
+        lenovo-legion-src = lib.cleanSourceWith {
+          src = inputs.legion-driver;
+          name = "source";
         };
       in
       rec {
@@ -44,12 +51,6 @@
             substituteInPlace legion_linux/legion_gui.desktop \
               --replace-fail "Icon=/usr/share/pixmaps/legion_logo.png" "Icon=legion_logo"
           '';
-        });
-
-        lenovo-legion-module = prev.lenovo-legion-module.overrideAttrs (old: {
-          src = lenovo-legion-src;
-
-          sourceRoot = "${lenovo-legion.src.name}/kernel_module";
         });
       }
     )

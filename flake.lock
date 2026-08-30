@@ -149,6 +149,39 @@
         "type": "github"
       }
     },
+    "legion-driver": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788113377,
+        "narHash": "sha256-e3rwYS0A53djoYBlpKil7asUyglC2qubVmD2KVgdhsI=",
+        "ref": "refs/heads/main",
+        "rev": "c539a8637eb8f39a0aafe69241f921d6cc116e13",
+        "revCount": 986,
+        "type": "git",
+        "url": "file:/home/prnice/Projects/personal/LenovoLegionLinux"
+      },
+      "original": {
+        "rev": "c539a8637eb8f39a0aafe69241f921d6cc116e13",
+        "type": "git",
+        "url": "file:/home/prnice/Projects/personal/LenovoLegionLinux"
+      }
+    },
+    "legion-frontend": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1788122154,
+        "narHash": "sha256-jTRf4ZoIYBjUHO7tPMTdZs2UZc9j/zFi7GmLV7FivVk=",
+        "owner": "Prn-Ice",
+        "repo": "LenovoLegionLinuxFrontend",
+        "rev": "479aeb5d032f7c4e43eb0c0388b60d640d4f22e3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Prn-Ice",
+        "repo": "LenovoLegionLinuxFrontend",
+        "type": "github"
+      }
+    },
     "mcp-nixos": {
       "inputs": {
         "devshell": "devshell",
@@ -293,6 +326,8 @@
       "inputs": {
         "batmon": "batmon",
         "home-manager": "home-manager",
+        "legion-driver": "legion-driver",
+        "legion-frontend": "legion-frontend",
         "mcp-nixos": "mcp-nixos",
         "nix-alien": "nix-alien",
         "nixpkgs": "nixpkgs_4",
