@@ -99,7 +99,8 @@
 
   services = {
     hardware.openrgb = {
-      enable = true;
+      # Keep OpenRGB off AMDI0010:03 while testing CS35L41 probe failures.
+      enable = false;
       motherboard = "amd";
       package = pkgs.openrgb-with-all-plugins;
     };

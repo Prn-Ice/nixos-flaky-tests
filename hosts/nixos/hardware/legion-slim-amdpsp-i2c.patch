@@ -1,0 +1,36 @@
+diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
+index 7be99656a67d..0b6a7820980f 100644
+--- a/drivers/i2c/busses/i2c-designware-platdrv.c
++++ b/drivers/i2c/busses/i2c-designware-platdrv.c
+@@ -8,6 +8,7 @@
+  * Copyright (C) 2007 MontaVista Software Inc.
+  * Copyright (C) 2009 Provigent Ltd.
+  */
++#include <linux/acpi.h>
+ #include <linux/clk-provider.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+@@ -86,6 +87,13 @@ static const struct dmi_system_id dw_i2c_hwmon_class_dmi[] = {
+ 	{ } /* terminate list */
+ };
+ 
++static bool dw_i2c_use_amdpsp_semaphore(struct device *dev)
++{
++	return dmi_match(DMI_SYS_VENDOR, "LENOVO") &&
++	       dmi_match(DMI_PRODUCT_NAME, "82Y4") &&
++	       acpi_dev_hid_uid_match(ACPI_COMPANION(dev), "AMDI0010", 3);
++}
++
+ static const struct i2c_dw_semaphore_callbacks i2c_dw_semaphore_cb_table[] = {
+ #ifdef CONFIG_I2C_DESIGNWARE_BAYTRAIL
+ 	{
+@@ -151,6 +159,9 @@ static int dw_i2c_plat_probe(struct platform_device *pdev)
+ 	if (device_property_present(device, "wx,i2c-snps-model"))
+ 		flags = MODEL_WANGXUN_SP | ACCESS_POLLING;
+ 
++	if (dw_i2c_use_amdpsp_semaphore(device))
++		flags |= ARBITRATION_SEMAPHORE;
++
+ 	dev->dev = device;
+ 	dev->irq = irq;
+ 	dev->flags = flags;

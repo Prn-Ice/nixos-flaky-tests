@@ -61,7 +61,7 @@
     zenpower
   ];
 
-  # Serialize access to the CS35L41 I2C bus with the AMD PSP on this model only.
+  # Request PSP ownership of the amplifier I2C bus on this model only.
   boot.kernelPatches = [
     {
       name = "legion-slim-amdpsp-i2c";
