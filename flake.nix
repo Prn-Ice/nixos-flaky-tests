@@ -24,7 +24,7 @@
     # driver changes. Set to the upstream pin below to return to upstream:
     # url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=3893e203332d60effea688a3043abd86046997ad";
     legion-driver = {
-      url = "path:/home/prnice/Projects/personal/LenovoLegionLinux";
+      url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=78f33eedf7ec3d4b5afbd2dda63674088578b437";
       flake = false;
     };
 

@@ -13,5 +13,6 @@
   services.legionControl = {
     enable = true;
     backendPackage = pkgs.lenovo-legion;
+    reconcileGraphicsAtBoot = true;
   };
 }
