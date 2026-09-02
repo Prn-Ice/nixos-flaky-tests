@@ -42,8 +42,9 @@ captures these root-visible states in
 
 - boot ID, uptime, kernel version, selected `/sys/power/disk` mode, and PM debug
   controls;
-- authoritative graphics-mode JSON and NVIDIA PCI presence;
-- root-port power, wake, and PCIe link state;
+- authoritative graphics-mode JSON in the initial capture;
+- fixed NVIDIA/root-port presence, driver binding, and runtime-power state in
+  the frozen captures, without PCI configuration-space probes;
 - ACPI wake configuration, kernel wakeup sources, wake IRQ, and suspend failure
   counters;
 - processes, systemd jobs and failures, and the relevant kernel/systemd journal.
@@ -74,9 +75,36 @@ display manager is restarted only when hibernate returned successfully and the
 dGPU remains detached and settled; otherwise it remains stopped for controlled
 Hybrid recovery.
 
-## Validation status
+## Validation result
 
-The configuration and scripts passed Bash syntax, `shfmt`, ShellCheck, Nix
-format/evaluation, and a complete NixOS host build on 2026-09-02. Activation and
-the hardware hibernate/resume test are still pending. Platform mode must not be
-retried.
+The first shutdown-mode attempt failed in boot `76d2cb91` on 2026-09-02. The
+pre-hook snapshot confirmed `[shutdown]`; the kernel therefore bypassed ACPI
+platform preparation and `_PTS(4)`. It preallocated snapshot memory, froze
+devices, and disabled secondary CPUs, but returned through the pre-image
+`pm_wakeup_pending()` path without calling `swsusp_write()` or powering off.
+
+NVIDIA reappeared after interrupts and CPUs were restored, with no wakeup-source
+counter change for `0000:00:01.1`. This makes the dGPU hotplug a rollback
+consequence in shutdown mode rather than the event that initiated rollback. A
+MediaTek `mt7921e` restore timeout on `0000:03:00.0` occurred later during device
+recovery and is not the pre-image trigger.
+
+The first runner also exposed two instrumentation bugs: `systemctl hibernate`
+returned as soon as the job was queued, causing PM diagnostics to be restored
+too early, and the frozen hook lacked `bash` in `PATH` for the graphics CLI.
+The code now requires an initially inactive `systemd-hibernate.service`, observes
+a new nonzero service start timestamp, and tracks that invocation until it
+finishes; `--wait` does not make the normal logind request synchronous. It also
+supplies Bash, skips the graphics CLI while sessions are frozen, and avoids
+`lspci`, broad PCI sysfs scans, power-state reads, and PCI link attributes because
+the initial capture runtime-resumed the NVIDIA root port and perturbed the
+baseline. Graphical recovery additionally requires complete evidence and a
+successful, complete root graphics inspection with zero clients and detached,
+settled topology. These fixes passed formatting, syntax, ShellCheck, diff checks,
+and a full host build but have not been hardware-retested.
+
+The user manually powered off after the failed return. New boot `eb9dea5f`
+reconciled to detached/settled topology with no failed units. Full evidence is
+stored at
+`/var/log/legion-hibernate-diagnostics/2026-09-02T12-40-01+01-00-76d2cb91`.
+Do not retry platform or shutdown-mode hibernation while iGPU-only is selected.

@@ -6,8 +6,8 @@ let
   legionHibernateDiagnostics = pkgs.writeShellApplication {
     name = "legion-hibernate-diagnostics";
     runtimeInputs = with pkgs; [
+      bash
       coreutils
-      pciutils
       procps
       systemd
     ];

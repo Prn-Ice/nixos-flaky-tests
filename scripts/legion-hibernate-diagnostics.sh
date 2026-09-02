@@ -29,38 +29,41 @@ capture_snapshot() {
 		uname -a
 	} >"$output/summary.txt" 2>&1
 
-	if [[ -x "$CLI" ]]; then
-		"$CLI" --donotexpecthwmon graphics-mode status --json \
-			>"$output/graphics-status.json" 2>"$output/graphics-status.error"
-	else
+	if [[ "$phase" == "initial-preflight" && -x "$CLI" ]]; then
+		if ! "$CLI" --donotexpecthwmon graphics-mode status --json \
+			>"$output/graphics-status.json" 2>"$output/graphics-status.error"; then
+			printf 'Graphics status capture failed during %s.\n' "$phase" \
+				>>"$output/CAPTURE-WARNINGS"
+		fi
+	elif [[ "$phase" == "initial-preflight" ]]; then
 		printf 'Validated CLI is unavailable at %s.\n' "$CLI" \
 			>"$output/graphics-status.error"
+		printf 'Graphics status capture was unavailable during %s.\n' "$phase" \
+			>>"$output/CAPTURE-WARNINGS"
+	else
+		printf 'Skipped during the frozen transition to avoid userspace side effects.\n' \
+			>"$output/graphics-status.skipped"
 	fi
 
 	{
-		lspci -nnk
-		printf '\n=== NVIDIA display root port ===\n'
-		lspci -vv -s 0000:00:01.1
-		printf '\n=== NVIDIA PCI functions present ===\n'
-		for device in /sys/bus/pci/devices/*; do
-			[[ -r "$device/vendor" ]] || continue
-			[[ $(<"$device/vendor") == "0x10de" ]] || continue
-			printf '%s class=%s driver=%s\n' \
-				"${device##*/}" \
-				"$(<"$device/class")" \
-				"$(readlink -f "$device/driver" 2>/dev/null || printf 'none')"
+		printf '=== Side-effect-free PCI presence ===\n'
+		for device in 0000:00:01.1 0000:01:00.0 0000:01:00.1 0000:03:00.0; do
+			device_path="/sys/bus/pci/devices/$device"
+			if [[ -e "$device_path" ]]; then
+				printf '%s present driver=%s\n' "$device" \
+					"$(readlink -f "$device_path/driver" 2>/dev/null || printf 'none')"
+			else
+				printf '%s absent\n' "$device"
+			fi
 		done
 	} >"$output/pci-and-graphics.txt" 2>&1
 
 	{
 		for path in \
-			/sys/bus/pci/devices/0000:00:01.1/power_state \
 			/sys/bus/pci/devices/0000:00:01.1/power/runtime_status \
 			/sys/bus/pci/devices/0000:00:01.1/power/control \
 			/sys/bus/pci/devices/0000:00:01.1/power/wakeup \
 			/sys/bus/pci/devices/0000:00:01.1/power/wakeup_count \
-			/sys/bus/pci/devices/0000:00:01.1/current_link_speed \
-			/sys/bus/pci/devices/0000:00:01.1/current_link_width \
 			/sys/module/legion_laptop/drivers/platform:legion/*/gsync \
 			/sys/module/legion_laptop/drivers/platform:legion/*/igpumode; do
 			[[ -e "$path" ]] || continue
@@ -93,7 +96,7 @@ capture_snapshot() {
 		-u systemd-hibernate.service -u systemd-logind.service \
 		>"$output/systemd-journal.txt" 2>&1
 
-	[[ -s "$output/summary.txt" && -s "$output/graphics-status.json" ]]
+	[[ -s "$output/summary.txt" ]]
 }
 
 start_capture() {
