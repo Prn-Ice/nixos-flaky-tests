@@ -112,6 +112,14 @@ start_capture() {
 	capture_snapshot "$evidence_dir/$phase" "$phase" "$started_at"
 }
 
+case ${1:-} in
+arm | cancel) ;;
+pre | post)
+	[[ ${2:-} == "hibernate" ]] || exit 0
+	;;
+*) exit 0 ;;
+esac
+
 install -d -m 0750 "$EVIDENCE_ROOT" "$RUNTIME_ROOT" || exit 1
 
 if [[ ${1:-} == "arm" ]]; then
@@ -131,9 +139,6 @@ if [[ ${1:-} == "cancel" ]]; then
 	rm -f "$RUNTIME_ROOT/current"
 	exit 0
 fi
-
-[[ ${1:-} == "pre" || ${1:-} == "post" ]] || exit 0
-[[ ${2:-} == "hibernate" ]] || exit 0
 
 if [[ $1 == "pre" ]]; then
 	if [[ ! -r "$RUNTIME_ROOT/current" ]]; then
