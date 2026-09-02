@@ -15,12 +15,12 @@ in the LenovoLegionLinuxFrontend repository at
 `docs/architecture/igpu-only-driver-handoff.md` and in Beads issue
 `lllf-j9t.6.1`.
 
-## Prepared workaround
+## Shutdown-mode workaround
 
 `hosts/nixos/hardware/hibernate.nix` now configures the single systemd
 `HibernateMode` value `shutdown`. Linux shutdown-mode hibernation skips the ACPI
-platform pre-snapshot callback, so it should avoid `_PTS(4)` while still writing
-the image before using the normal shutdown path.
+platform pre-snapshot callback, avoiding `_PTS(4)`, writes the image, and uses
+the normal shutdown path.
 
 This setting is fail-closed in systemd 261: `systemd-sleep` replaces its parsed
 mode list with the configured value, writes that value to `/sys/power/disk`, and
@@ -77,17 +77,22 @@ Hybrid recovery.
 
 ## Validation result
 
-The first shutdown-mode attempt failed in boot `76d2cb91` on 2026-09-02. The
-pre-hook snapshot confirmed `[shutdown]`; the kernel therefore bypassed ACPI
-platform preparation and `_PTS(4)`. It preallocated snapshot memory, froze
-devices, and disabled secondary CPUs, but returned through the pre-image
-`pm_wakeup_pending()` path without calling `swsusp_write()` or powering off.
+The first shutdown-mode attempt in boot `76d2cb91` on 2026-09-02 successfully
+created and restored a hibernation image. The pre-hook snapshot confirmed
+`[shutdown]`, so the kernel bypassed ACPI platform preparation and `_PTS(4)`.
+It preallocated snapshot memory, froze devices, disabled secondary CPUs, passed
+the `pm_wakeup_pending()` check, and entered `swsusp_save()`.
 
-NVIDIA reappeared after interrupts and CPUs were restored, with no wakeup-source
-counter change for `0000:00:01.1`. This makes the dGPU hotplug a rollback
-consequence in shutdown mode rather than the event that initiated rollback. A
-MediaTek `mt7921e` restore timeout on `0000:03:00.0` occurred later during device
-recovery and is not the pre-image trigger.
+Systemd's `/sys/power/state` write returned successfully and the same kernel boot
+ID resumed. Wall clock advanced about 93 seconds while kernel monotonic time
+advanced 11.212 seconds, leaving roughly 82 seconds in the powered-off state.
+The absent image-write/restore messages were PM-debug messages suppressed by the
+runner race below, not evidence that image creation was skipped.
+
+NVIDIA reappeared during kernel device restoration, before systemd's post hook
+and before `user.slice` thaw. A MediaTek `mt7921e` restore timeout on
+`0000:03:00.0` was a separate device-resume error. The remaining iGPU-only defect
+is therefore post-resume NVIDIA topology, not failed hibernation.
 
 The first runner also exposed two instrumentation bugs: `systemctl hibernate`
 returned as soon as the job was queued, causing PM diagnostics to be restored
@@ -103,8 +108,18 @@ successful, complete root graphics inspection with zero clients and detached,
 settled topology. These fixes passed formatting, syntax, ShellCheck, diff checks,
 and a full host build but have not been hardware-retested.
 
+The frontend NixOS module now provides
+`services.legionControl.reconcileGraphicsAfterHibernate`, defaulting to the
+already-enabled boot reconciliation option. Its post hook checks
+`SYSTEMD_SLEEP_ACTION=hibernate`, waits up to 10 seconds for udev, and runs the
+hardened graphics reconciliation with a 40-second timeout before systemd thaws
+user sessions. This covers direct hibernate and the final hibernate stage of
+suspend-then-hibernate without running after ordinary suspend.
+
 The user manually powered off after the failed return. New boot `eb9dea5f`
 reconciled to detached/settled topology with no failed units. Full evidence is
 stored at
 `/var/log/legion-hibernate-diagnostics/2026-09-02T12-40-01+01-00-76d2cb91`.
-Do not retry platform or shutdown-mode hibernation while iGPU-only is selected.
+The reconciliation hook passes Nix formatting/parsing, option evaluation, no-op
+dispatch tests, and a full host build. Deployment and controlled resume
+validation remain pending; platform-mode hibernation must not be used.
