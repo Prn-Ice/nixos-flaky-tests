@@ -111,15 +111,34 @@ and a full host build but have not been hardware-retested.
 The frontend NixOS module now provides
 `services.legionControl.reconcileGraphicsAfterHibernate`, defaulting to the
 already-enabled boot reconciliation option. Its post hook checks
-`SYSTEMD_SLEEP_ACTION=hibernate`, waits up to 10 seconds for udev, and runs the
-hardened graphics reconciliation with a 40-second timeout before systemd thaws
-user sessions. This covers direct hibernate and the final hibernate stage of
+`SYSTEMD_SLEEP_ACTION=hibernate` and runs before systemd thaws user sessions.
+This covers direct hibernate and the final hibernate stage of
 suspend-then-hibernate without running after ordinary suspend.
+
+The first deployed hook validation ran in boot
+`fafd892b-38b4-4062-98ee-ffe47e352e62` on 2026-09-03. The kernel explicitly
+reported `Hibernation image restored successfully`. About 180 ms after
+hibernation exit, the original one-shot hook observed partial NVIDIA topology,
+incomplete client inspection, blocked reconciliation, and zero reconciliation
+attempts. It exited 2 rather than bypassing the client preflight. NVIDIA DRM and
+audio completed attached initialization roughly 1.3 seconds later. The guarded
+runner kept the display manager stopped, and the restored system remained
+running with no failed units. This proved `udevadm settle` did not establish
+driver and device-node readiness.
+
+Frontend revision `4248cf8` replaces the one-shot attempt with authoritative
+root reconciliation retries every two seconds under one 60-second deadline. It
+rejects confirmed clients, malformed or unsupported JSON, and inconsistent
+success immediately. It succeeds only with schema version 1, complete client
+inspection, no clients, settled reconciliation, and effective topology matching
+the expected attached or detached state. Enabling either boot or hibernate
+reconciliation now also loads `legion_laptop`.
 
 The user manually powered off after the failed return. New boot `eb9dea5f`
 reconciled to detached/settled topology with no failed units. Full evidence is
 stored at
 `/var/log/legion-hibernate-diagnostics/2026-09-02T12-40-01+01-00-76d2cb91`.
-The reconciliation hook passes Nix formatting/parsing, option evaluation, no-op
-dispatch tests, and a full host build. Deployment and controlled resume
-validation remain pending; platform-mode hibernation must not be used.
+The bounded-retry hook passes focused shell tests, ShellCheck, Nix formatting,
+generated no-op dispatch tests, and a full host build. The revision is pinned but
+still requires activation and controlled resume validation; platform-mode
+hibernation must not be used.
