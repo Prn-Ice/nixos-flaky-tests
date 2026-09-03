@@ -25,6 +25,7 @@ in
       efiSupport = true;
       useOSProber = true;
       device = "nodev";
+      configurationLimit = 10;
       memtest86.enable = true;
       # efiInstallAsRemovable = true; # in case canTouchEfiVariables doesn't work for your system
       theme = grub-theme;
