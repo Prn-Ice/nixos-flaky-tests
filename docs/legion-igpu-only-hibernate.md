@@ -159,4 +159,6 @@ without a forced shutdown. The runner now uses a pre-request journal cursor,
 requires the post-cursor kernel restored-image message plus inactive
 `Result=success` service state, allows journal-ingestion grace, and explicitly
 renews sudo before reading privileged evidence. The hibernate reconciliation is
-validated; platform-mode hibernation must not be used.
+validated, but normal return to an existing graphical/audio session without
+manual service recovery remains open. Platform-mode hibernation must not be
+used.
