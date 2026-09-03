@@ -141,5 +141,22 @@ stored at
 The bounded-retry hook passes focused shell tests, ShellCheck, Nix formatting,
 generated no-op dispatch tests, and a full host build. It is active in NixOS
 generation 471 with detached/settled topology, an active display manager, no
-failed units, and 3.2 GiB free on `/boot`. Controlled resume validation remains
-pending; platform-mode hibernation must not be used.
+failed units, and 3.2 GiB free on `/boot`.
+
+Controlled validation in boot `fe05b2d8-bedb-4bf0-97ad-25f9b14d79f8`
+successfully powered off and restored the same hibernation image. At monotonic
+466.586 the hook first observed partial topology, incomplete client inspection,
+blocked reconciliation, and zero attempts. At 493.858 it reported detached,
+settled topology with complete inspection, zero clients, and six attempts.
+`user.slice` thawed at 493.862, after the authoritative detached result. The
+system retained a working internal display and zero failed units. Evidence is at
+`/var/log/legion-hibernate-diagnostics/2026-09-03T21-49-22+01-00-fe05b2d8`.
+
+The test runner falsely returned 1 because the completed transient service's
+start timestamp disappeared and sudo authentication expired during the
+powered-off interval. Manual audio and display-manager startup restored the UI
+without a forced shutdown. The runner now uses a pre-request journal cursor,
+requires the post-cursor kernel restored-image message plus inactive
+`Result=success` service state, allows journal-ingestion grace, and explicitly
+renews sudo before reading privileged evidence. The hibernate reconciliation is
+validated; platform-mode hibernation must not be used.
