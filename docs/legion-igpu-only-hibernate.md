@@ -139,6 +139,7 @@ reconciled to detached/settled topology with no failed units. Full evidence is
 stored at
 `/var/log/legion-hibernate-diagnostics/2026-09-02T12-40-01+01-00-76d2cb91`.
 The bounded-retry hook passes focused shell tests, ShellCheck, Nix formatting,
-generated no-op dispatch tests, and a full host build. The revision is pinned but
-still requires activation and controlled resume validation; platform-mode
-hibernation must not be used.
+generated no-op dispatch tests, and a full host build. It is active in NixOS
+generation 471 with detached/settled topology, an active display manager, no
+failed units, and 3.2 GiB free on `/boot`. Controlled resume validation remains
+pending; platform-mode hibernation must not be used.
