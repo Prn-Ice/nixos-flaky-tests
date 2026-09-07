@@ -55,6 +55,12 @@
 
     # MCP NixOS server for AI assistants
     mcp-nixos.url = "github:utensils/mcp-nixos";
+
+    # Local web dashboard for beads (bd) issue trackers
+    view-beads = {
+      url = "github:Prn-Ice/beads-viewer";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   # `outputs` are all the build result of the flake.

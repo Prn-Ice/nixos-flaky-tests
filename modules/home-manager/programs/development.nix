@@ -33,6 +33,9 @@ in
     # AI coding agent memory system
     beads
 
+    # Local dashboard for beads (bd) issue trackers
+    inputs.view-beads.packages.${pkgs.stdenv.hostPlatform.system}.default
+
     # AI coding assistant
     claude-code
     opencode
