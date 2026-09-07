@@ -169,11 +169,11 @@
     "legion-frontend": {
       "flake": false,
       "locked": {
-        "lastModified": 1788813106,
-        "narHash": "sha256-82kxMGOZUgfgMw+SEX8uDJtoRBoZ8rM+zTCznwYOn6s=",
+        "lastModified": 1788814148,
+        "narHash": "sha256-Ml1fblXztlHGCRrzmwaZk6wYPrSiZ1fOduO7bdPLJg0=",
         "owner": "Prn-Ice",
         "repo": "LenovoLegionLinuxFrontend",
-        "rev": "b0ec1e521a44b016471b2772ead3e818c3801be8",
+        "rev": "53620b826f359c5646b53850ef43da3a36336c7d",
         "type": "github"
       },
       "original": {
@@ -308,11 +308,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1788614874,
-        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
+        "lastModified": 1788752844,
+        "narHash": "sha256-VaWGJ6+cIYN2erfSecbRV+4ljI185Ty2wUrXyvQbgOw=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
+        "rev": "dc5d91f840324650bac8c379428c7037a416959a",
         "type": "github"
       },
       "original": {
@@ -378,11 +378,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788817815,
-        "narHash": "sha256-vFy7N3g8JFm0uM48+/Gq+B1pZMIXDgh4QgHzh+l9aRE=",
+        "lastModified": 1788822485,
+        "narHash": "sha256-KJqqydfkaNBTIN2rLR4rF9Lt0ImAPqfXPNQAqunbmX8=",
         "owner": "Prn-Ice",
         "repo": "beads-viewer",
-        "rev": "f96d52ba6427e6bf10b82e032d2709e21519aee2",
+        "rev": "be197d043b7d205dc417f200f6032f141fbd8bad",
         "type": "github"
       },
       "original": {
