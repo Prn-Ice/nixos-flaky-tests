@@ -39,14 +39,25 @@ in
     mode = "0755";
   };
 
-  # Wire NVIDIA power management services into suspend-then-hibernate
+  # Wire NVIDIA power management services into suspend-then-hibernate.
+  # The driver uses kernel suspend notifiers (NVreg_UseKernelSuspendNotifiers=1),
+  # so these units only enforce ordering. systemd 261.2 refuses services without
+  # an ExecStart, so keep them valid no-op oneshot units.
   systemd.services.nvidia-suspend = {
     before = [ "systemd-suspend-then-hibernate.service" ];
     requiredBy = [ "systemd-suspend-then-hibernate.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.coreutils}/bin/true";
+    };
   };
   systemd.services.nvidia-resume = {
     after = [ "systemd-suspend-then-hibernate.service" ];
     wantedBy = [ "systemd-suspend-then-hibernate.service" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.coreutils}/bin/true";
+    };
   };
 
   swapDevices = [
