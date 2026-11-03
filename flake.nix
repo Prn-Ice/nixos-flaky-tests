@@ -59,7 +59,6 @@
     # Local web dashboard for beads (bd) issue trackers
     view-beads = {
       url = "github:Prn-Ice/beads-viewer";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -80,6 +79,16 @@
       ...
     }@inputs:
     {
+      # Used by `nix develop` and VS Code's Nix Env Selector.
+      devShells.x86_64-linux.default = let
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+      in pkgs.mkShell {
+        packages = with pkgs; [
+          git
+          nixfmt
+        ];
+      };
+
       nixosConfigurations = {
         # By default, NixOS will try to refer the nixosConfiguration with
         # its hostname, so the system named `nixos` will use this one.

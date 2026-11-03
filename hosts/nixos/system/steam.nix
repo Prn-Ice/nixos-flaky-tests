@@ -91,7 +91,7 @@ in
   environment.systemPackages = [
     mangohud
     protonup-qt
-    lutris
+    # lutris
     bottles
     heroic
     wine-staging

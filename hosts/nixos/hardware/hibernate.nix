@@ -15,8 +15,6 @@ let
   };
 in
 {
-  boot.initrd.systemd.enable = true;
-
   # Suspend first then hibernate when closing the lid
   services.logind.settings.Login.HandleLidSwitch = "suspend-then-hibernate";
 

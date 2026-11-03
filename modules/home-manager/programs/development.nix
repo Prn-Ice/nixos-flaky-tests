@@ -24,6 +24,13 @@ let
     includeNDK = true;
   };
   androidSdk = androidComposition.androidsdk;
+  viewBeads =
+    inputs.view-beads.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
+      (old: {
+        npmDeps = old.npmDeps.overrideAttrs {
+          outputHash = "sha256-u5QON0kbf94Z8ryLc0lyIiuBCjzBMEN+KAmNgsNRcX4=";
+        };
+      });
 in
 {
   home.packages = with pkgs; [
@@ -34,7 +41,7 @@ in
     beads
 
     # Local dashboard for beads (bd) issue trackers
-    inputs.view-beads.packages.${pkgs.stdenv.hostPlatform.system}.default
+    viewBeads
 
     # AI coding assistant
     claude-code

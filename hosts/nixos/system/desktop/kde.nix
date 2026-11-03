@@ -29,6 +29,8 @@
     plasma6.enable = true;
   };
 
+  programs.kdeconnect.enable = true;
+
   environment.systemPackages = with pkgs; [
     kdePackages.yakuake
     kdePackages.krecorder

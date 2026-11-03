@@ -1,5 +1,23 @@
 # OpenRGB Plugin Debugging Guide
 
+## Current configuration (November 2026)
+
+Use nixpkgs' `openrgb-with-all-plugins` package directly. Nixpkgs now packages
+OpenRGB 1.1, Effects 1.1, and Hardware Sync 1.0 with the required plugin
+wrapper, so this repository no longer needs custom source overrides.
+
+Do not override only `openrgb.src` while inheriting the rest of the current
+nixpkgs derivation. The derivation for OpenRGB 1.1 runs
+`openrgb --generate-udev-rules` during installation. An older pinned OpenRGB
+source does not implement that option, producing this misleading build error:
+
+```text
+Error: Invalid option: --generate-udev-rules
+```
+
+The custom-overlay material below documents the older setup and remains useful
+only if a future hardware-specific source build is required.
+
 ## Problem Overview
 
 When building OpenRGB with custom overlays in NixOS, plugins may fail to load even though they build successfully. This document explains how to debug and fix this issue.

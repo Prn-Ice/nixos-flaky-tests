@@ -56,9 +56,24 @@
     )
   ];
 
-  boot.extraModulePackages = with config.boot.kernelPackages; [
-    lenovo-legion-module
-    zenpower
+  boot.extraModulePackages = [
+    (config.boot.kernelPackages.lenovo-legion-module.overrideAttrs (old: {
+      # The driver's custom install target copies only legion-laptop.ko.
+      # Use Kbuild's installer so kmodigest also installs the .ko.cer file
+      # required by nixpkgs' external-module aggregator.
+      makeFlags = old.makeFlags ++ [
+        "INSTALL_MOD_PATH=${placeholder "out"}"
+        "INSTALL_MOD_DIR=kernel/drivers/platform/x86"
+        "DEPMOD=true"
+      ];
+      installFlags = [
+        "-C"
+        "${config.boot.kernelPackages.kernel.dev}/lib/modules/${config.boot.kernelPackages.kernel.modDirVersion}/build"
+        "M=$(PWD)"
+      ];
+      installTargets = [ "modules_install" ];
+    }))
+    config.boot.kernelPackages.zenpower
   ];
 
   # Request PSP ownership of the amplifier I2C bus on this model only.
