@@ -14,5 +14,6 @@
     enable = true;
     backendPackage = pkgs.lenovo-legion;
     reconcileGraphicsAtBoot = true;
+    nextBootGraphics = true;
   };
 }
