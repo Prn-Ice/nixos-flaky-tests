@@ -32,6 +32,11 @@ the `legiond` build. Its Nix CLI/GUI package and Linux 7.3.4 module built.
 The packaged CLI help command and offscreen GUI automatic-close check passed;
 the GUI reported the existing permission error for an unprivileged fan read.
 
+The full system build also passed for this computer's working configuration,
+including its existing unrelated local edits. An initial optional-cache outage
+was resolved with Nix's `--fallback` option; the standard command then passed
+without it. All seven checks on the driver PR passed.
+
 Build the system without activating it:
 
 ```sh
