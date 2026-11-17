@@ -152,18 +152,18 @@
     "legion-driver": {
       "flake": false,
       "locked": {
-        "lastModified": 1788297056,
-        "narHash": "sha256-EGW4/jQp7E4RAS5xlAFLMa/M3t+hxFzaKmHMAqixyaI=",
-        "ref": "refs/heads/main",
-        "rev": "dec598335b9482c4b63ff02f34c1bc26d1d6cabc",
-        "revCount": 990,
-        "type": "git",
-        "url": "file:/home/prnice/Projects/personal/LenovoLegionLinux"
+        "lastModified": 1794944468,
+        "narHash": "sha256-hlsGJVhJI1IPb1a0By5/UaEfTzo6xKlxwk2PBzHgdak=",
+        "owner": "Prn-Ice",
+        "repo": "LenovoLegionLinux",
+        "rev": "baafe12ccb4bea628aecccfb0e53309fa9c6be00",
+        "type": "github"
       },
       "original": {
-        "rev": "dec598335b9482c4b63ff02f34c1bc26d1d6cabc",
-        "type": "git",
-        "url": "file:/home/prnice/Projects/personal/LenovoLegionLinux"
+        "owner": "Prn-Ice",
+        "repo": "LenovoLegionLinux",
+        "rev": "baafe12ccb4bea628aecccfb0e53309fa9c6be00",
+        "type": "github"
       }
     },
     "legion-frontend": {
