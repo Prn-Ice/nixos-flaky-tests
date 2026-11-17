@@ -19,12 +19,10 @@
       flake = false;
     };
 
-    # Local LenovoLegionLinux checkout (kernel module + CLI/GUI), pinned to
-    # an exact revision for pure evaluation. Update rev after committing
-    # driver changes. Set to the upstream pin below to return to upstream:
-    # url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=3893e203332d60effea688a3043abd86046997ad";
+    # Fork snapshot: latest upstream plus local M1CN power and graphics fixes.
+    # The kernel module and CLI/GUI use the same revision.
     legion-driver = {
-      url = "git+file:/home/prnice/Projects/personal/LenovoLegionLinux?rev=dec598335b9482c4b63ff02f34c1bc26d1d6cabc";
+      url = "github:Prn-Ice/LenovoLegionLinux/baafe12ccb4bea628aecccfb0e53309fa9c6be00";
       flake = false;
     };
 
